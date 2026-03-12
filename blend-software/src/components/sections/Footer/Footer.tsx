@@ -101,9 +101,9 @@ export default function Footer() {
           {/* Contact — separated CTA block */}
           <div className={styles.colContact}>
             <h4 className={styles.colTitle}>Contacto</h4>
-            <a href="mailto:hola@blendsoftware.io" className={styles.contactEmail}>
+            <a href="mailto:contacto@blendsoftware.tech" className={styles.contactEmail}>
               <Mail size={13} strokeWidth={1.75} />
-              hola@blendsoftware.io
+              contacto@blendsoftware.tech
             </a>
             <Link href="/contacto" className={styles.ctaLink}>
               Iniciar un proyecto

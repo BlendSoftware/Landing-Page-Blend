@@ -5,6 +5,10 @@ export const metadata: Metadata = {
   title: 'Blend Software — Soluciones de software a medida',
   description:
     'Desarrollamos herramientas digitales modernas que ayudan a empresas a automatizar procesos, mejorar su eficiencia y crecer.',
+  icons: {
+    icon: '/logo-blend-mark.svg',
+    shortcut: '/logo-blend-mark.svg',
+  },
   openGraph: {
     title: 'Blend Software',
     description: 'Software a medida para empresas modernas',
