@@ -280,6 +280,12 @@
   flex-wrap: wrap;
 }
 
+.errorMessage {
+  margin-bottom: $spacing-sm;
+  font-size: $font-size-sm;
+  color: #b42318;
+}
+
 .privacy {
   font-size: $font-size-xs;
   color: $color-text-muted;

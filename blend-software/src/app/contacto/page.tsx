@@ -10,10 +10,10 @@ import styles from './page.module.scss';
 
 const services = [
   'Software a medida',
-  'Automatizacion de procesos',
+  'Automatización de procesos',
   'Integraciones con sistemas',
   'Soluciones con IA',
-  'Consultoria tecnica',
+  'Consultoria técnica',
   'Otro',
 ];
 
@@ -47,6 +47,7 @@ export default function ContactoPage() {
   const [form, setForm] = useState<FormState>(initialForm);
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -54,11 +55,44 @@ export default function ContactoPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true);
-    // Simulate a brief delay for UX
-    await new Promise((r) => setTimeout(r, 800));
-    setLoading(false);
-    setSubmitted(true);
+    setSubmitError(null);
+
+    if (!form.name.trim() || !form.email.trim() || !form.message.trim()) {
+      setSubmitError('Completa nombre, email y mensaje para continuar.');
+      return;
+    }
+
+    try {
+      setLoading(true);
+
+      const response = await fetch('/api/contacto', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          nombre: form.name,
+          email: form.email,
+          mensaje: form.message,
+        }),
+      });
+
+      if (!response.ok) {
+        const data = (await response.json().catch(() => null)) as { error?: string } | null;
+        throw new Error(data?.error ?? 'No se pudo enviar el mensaje.');
+      }
+
+      setSubmitted(true);
+      setForm(initialForm);
+    } catch (error) {
+      setSubmitError(
+        error instanceof Error
+          ? error.message
+          : 'Ocurrió un problema al enviar tu mensaje. Intenta nuevamente.'
+      );
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -81,7 +115,7 @@ export default function ContactoPage() {
               </h1>
               <p className={styles.subtitle}>
                 La primera conversacion es gratis y sin compromiso.
-                En menos de 24 horas te respondemos con una evaluacion honesta
+                En menos de 48 horas hábiles te respondemos con una evaluacion honesta
                 de lo que podemos hacer juntos.
               </p>
             </div>
@@ -96,14 +130,14 @@ export default function ContactoPage() {
               {/* Sidebar info */}
               <aside className={styles.sidebar}>
                 <div className={styles.infoCard}>
-                  <h2 className={styles.infoTitle}>Informacion de contacto</h2>
+                  <h2 className={styles.infoTitle}>Información de contacto</h2>
 
                   <div className={styles.infoItem}>
                     <div className={styles.infoIcon}><Mail size={17} strokeWidth={1.75} /></div>
                     <div>
                       <span className={styles.infoLabel}>Email</span>
-                      <a href="mailto:hola@blendsoftware.io" className={styles.infoValue}>
-                        hola@blendsoftware.io
+                      <a href="mailto:contacto@blendsoftware.tech" className={styles.infoValue}>
+                        contacto@blendsoftware.tech
                       </a>
                     </div>
                   </div>
@@ -111,7 +145,7 @@ export default function ContactoPage() {
                   <div className={styles.infoItem}>
                     <div className={styles.infoIcon}><MapPin size={17} strokeWidth={1.75} /></div>
                     <div>
-                      <span className={styles.infoLabel}>Ubicacion</span>
+                      <span className={styles.infoLabel}>Ubicación</span>
                       <span className={styles.infoValue}>Mendoza, Argentina</span>
                     </div>
                   </div>
@@ -120,7 +154,7 @@ export default function ContactoPage() {
                     <div className={styles.infoIcon}><Clock size={17} strokeWidth={1.75} /></div>
                     <div>
                       <span className={styles.infoLabel}>Tiempo de respuesta</span>
-                      <span className={styles.infoValue}>Menos de 24 horas habiles</span>
+                      <span className={styles.infoValue}>Menos de 48 horas hábiles</span>
                     </div>
                   </div>
                 </div>
@@ -129,7 +163,7 @@ export default function ContactoPage() {
                   <h3 className={styles.expectTitle}>Que esperar</h3>
                   <ol className={styles.expectList}>
                     {[
-                      'Respondemos con una evaluacion de tu proyecto',
+                      'Respondemos con una evaluación de tu proyecto',
                       'Agendamos una llamada de 30-60 minutos',
                       'Te enviamos una propuesta detallada sin costo',
                     ].map((step, i) => (
@@ -152,7 +186,7 @@ export default function ContactoPage() {
                     <h2 className={styles.successTitle}>Mensaje recibido</h2>
                     <p className={styles.successText}>
                       Gracias por escribirnos. Revisamos tu consulta y te respondemos
-                      antes de las proximas 24 horas habiles.
+                      antes de las próximas 48 horas hábiles.
                     </p>
                     <Button
                       variant="secondary"
@@ -186,7 +220,7 @@ export default function ContactoPage() {
 
                       <div className={styles.fieldGroup}>
                         <label className={styles.label} htmlFor="email">
-                          Correo electronico <span className={styles.required}>*</span>
+                          Correo electrónico <span className={styles.required}>*</span>
                         </label>
                         <input
                           id="email"
@@ -203,7 +237,7 @@ export default function ContactoPage() {
 
                       <div className={styles.fieldGroup}>
                         <label className={styles.label} htmlFor="company">
-                          Empresa u organizacion
+                          Empresa u organización
                         </label>
                         <input
                           id="company"
@@ -228,7 +262,7 @@ export default function ContactoPage() {
                           onChange={handleChange}
                           className={styles.select}
                         >
-                          <option value="">Selecciona una opcion</option>
+                          <option value="">Selecciona una opción</option>
                           {services.map((s) => (
                             <option key={s} value={s}>{s}</option>
                           ))}
@@ -265,17 +299,19 @@ export default function ContactoPage() {
                           value={form.message}
                           onChange={handleChange}
                           className={styles.textarea}
-                          placeholder="Describe brevemente el problema que queres resolver, que proceso queres mejorar o que sistema necesitas..."
+                          placeholder="Describe brevemente el problema que querés resolver, que proceso querés mejorar o que sistema necesitas..."
                         />
                       </div>
                     </div>
 
+                    {submitError ? <p className={styles.errorMessage}>{submitError}</p> : null}
+
                     <div className={styles.formFooter}>
                       <p className={styles.privacy}>
-                        Tu informacion se trata con confidencialidad.
+                        Tu información se trata con confidencialidad.
                         Lee nuestra{' '}
                         <Link href="/privacidad" className={styles.privacyLink}>
-                          politica de privacidad
+                          política de privacidad
                         </Link>.
                       </p>
                       <button
