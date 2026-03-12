@@ -1,0 +1,280 @@
+﻿@use '@/styles/variables' as *;
+
+// ═══════════════════════════════════════════════════════════════
+//  FOOTER
+// ═══════════════════════════════════════════════════════════════
+
+.footer {
+  position: relative;
+  background-color: #0D1519;
+  color: $color-white;
+  padding-top: 0;
+  padding-bottom: $spacing-xl;
+
+  // Gold ambient glow — bottom-right
+  &::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 500px;
+    height: 350px;
+    background: radial-gradient(ellipse at 80% 100%, rgba($color-gold, 0.05) 0%, transparent 65%);
+    pointer-events: none;
+  }
+
+  // Teal ambient glow — top-left
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 400px;
+    height: 280px;
+    background: radial-gradient(ellipse at 15% 0%, rgba($color-primary, 0.06) 0%, transparent 60%);
+    pointer-events: none;
+  }
+}
+
+// ── Top gradient bar ──────────────────────────────────────────
+.topBar {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    $color-primary 25%,
+    $color-gold 65%,
+    transparent 100%
+  );
+  opacity: 0.55;
+  margin-bottom: $spacing-2xl;
+}
+
+// ── Grid ──────────────────────────────────────────────────────
+.grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1.8fr 1fr 1fr 1fr 1.4fr;
+  gap: $spacing-xl;
+  margin-bottom: $spacing-2xl;
+
+  @media (max-width: 1100px) {
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: $spacing-xl $spacing-lg;
+  }
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr 1fr;
+    gap: $spacing-lg;
+  }
+
+  @media (max-width: 480px) {
+    grid-template-columns: 1fr;
+    gap: $spacing-lg;
+  }
+}
+
+// ── Brand ─────────────────────────────────────────────────────
+.brand {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-md;
+  padding-right: $spacing-lg;
+}
+
+.logoLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  transition: opacity $transition-fast;
+
+  &:hover { opacity: 0.8; }
+}
+
+.logoTexts {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.logoName {
+  font-size: $font-size-xl;
+  font-weight: $font-weight-bold;
+  color: $color-white;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+.logoCity {
+  font-size: 10px;
+  font-weight: $font-weight-semibold;
+  color: $color-gold;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.tagline {
+  font-size: $font-size-sm;
+  color: rgba($color-white, 0.42);
+  line-height: $line-height-relaxed;
+  max-width: 30ch;
+}
+
+.socials {
+  display: flex;
+  gap: 8px;
+}
+
+.social {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1px solid rgba($color-white, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba($color-white, 0.4);
+  transition: all $transition-normal;
+
+  &:hover {
+    background: rgba($color-gold, 0.12);
+    border-color: rgba($color-gold, 0.35);
+    color: $color-gold-light;
+    transform: translateY(-2px);
+  }
+}
+
+.brandCopy {
+  font-size: 11px;
+  color: rgba($color-white, 0.2);
+  letter-spacing: 0.03em;
+  margin-top: auto;
+  padding-top: $spacing-xs;
+}
+
+// ── Standard columns ──────────────────────────────────────────
+.col {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.colTitle {
+  font-size: 9px;
+  font-weight: $font-weight-bold;
+  color: rgba($color-gold, 0.7);
+  letter-spacing: 0.17em;
+  text-transform: uppercase;
+  margin-bottom: $spacing-md;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba($color-gold, 0.1);
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.link {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 13px;
+  color: rgba($color-white, 0.38);
+  text-decoration: none;
+  transition: color $transition-fast, transform $transition-fast;
+
+  &:hover {
+    color: rgba($color-white, 0.88);
+    transform: translateX(3px);
+  }
+}
+
+// ── Contact column (right, visually separated) ────────────────
+.colContact {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  padding-left: $spacing-xl;
+  border-left: 1px solid rgba($color-white, 0.07);
+
+  @media (max-width: 1100px) {
+    padding-left: 0;
+    border-left: none;
+    border-top: 1px solid rgba($color-white, 0.07);
+    padding-top: $spacing-lg;
+    grid-column: 1 / -1;
+  }
+}
+
+.contactEmail {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: rgba($color-white, 0.42);
+  text-decoration: none;
+  transition: color $transition-fast;
+  margin-bottom: $spacing-md;
+
+  &:hover {
+    color: rgba($color-white, 0.88);
+  }
+}
+
+.ctaLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 13px;
+  font-weight: $font-weight-semibold;
+  color: $color-gold;
+  text-decoration: none;
+  padding: 9px 16px;
+  border: 1px solid rgba($color-gold, 0.3);
+  border-radius: 6px;
+  transition: all $transition-normal;
+  align-self: flex-start;
+  letter-spacing: 0.01em;
+
+  &:hover {
+    background: rgba($color-gold, 0.1);
+    border-color: rgba($color-gold, 0.55);
+    color: $color-gold-light;
+    transform: translateX(3px);
+  }
+}
+
+// ── Bottom bar ────────────────────────────────────────────────
+.bottom {
+  position: relative;
+  z-index: 1;
+  border-top: 1px solid rgba($color-white, 0.06);
+  padding-top: $spacing-md;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.copy {
+  font-size: $font-size-xs;
+  color: rgba($color-white, 0.22);
+  letter-spacing: 0.02em;
+}
+
+.madeIn {
+  font-size: $font-size-xs;
+  color: rgba($color-gold, 0.38);
+  letter-spacing: 0.04em;
+  font-style: italic;
+}

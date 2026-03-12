@@ -1,0 +1,301 @@
+﻿@use '@/styles/variables' as *;
+
+.main {
+  padding-top: calc(#{$nav-height} + 3px);
+}
+
+// HERO
+
+.hero {
+  background: $color-gold-bg;
+  padding-top: $spacing-xl;
+  padding-bottom: $spacing-xl;
+  border-bottom: 1px solid rgba($color-gold, 0.2);
+}
+
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: $font-size-sm;
+  color: $color-text-muted;
+  margin-bottom: $spacing-md;
+
+  a {
+    color: $color-text-secondary;
+    text-decoration: none;
+    transition: color $transition-fast;
+
+    &:hover { color: $color-gold; }
+  }
+}
+
+.heroContent {
+  max-width: 680px;
+  margin-bottom: $spacing-lg;
+}
+
+.label {
+  display: inline-block;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-semibold;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: $color-gold-dark;
+  background: rgba($color-gold, 0.12);
+  padding: 5px 12px;
+  border-radius: $radius-full;
+  margin-bottom: $spacing-sm;
+}
+
+.title {
+  font-size: clamp($font-size-4xl, 5vw, $font-size-5xl);
+  font-weight: $font-weight-extrabold;
+  line-height: $line-height-tight;
+  color: $color-text;
+  margin-bottom: $spacing-sm;
+}
+
+.titleAccent { color: $color-gold; }
+
+.subtitle {
+  font-size: $font-size-lg;
+  color: $color-text-secondary;
+  line-height: $line-height-relaxed;
+}
+
+.valuesRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px $spacing-lg;
+}
+
+.valueItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: $font-size-sm;
+  color: $color-text;
+
+  svg { color: $color-gold; flex-shrink: 0; }
+}
+
+// STEPS
+
+.steps {
+  padding-block: $spacing-2xl;
+}
+
+.timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.stepCard {
+  position: relative;
+  padding: $spacing-xl;
+  border: 1px solid $color-border;
+  border-radius: $radius-lg;
+  margin-bottom: $spacing-md;
+  background: $color-surface;
+  box-shadow: $shadow-xs;
+  overflow: visible;
+
+  &.teal {
+    border-top: 3px solid $color-primary;
+  }
+
+  &.gold {
+    border-top: 3px solid $color-gold;
+  }
+}
+
+.connector {
+  display: none;
+}
+
+.stepHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: $spacing-md;
+}
+
+.stepMeta {
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+}
+
+.stepNumber {
+  font-size: $font-size-xs;
+  font-weight: $font-weight-bold;
+  letter-spacing: 0.12em;
+  color: $color-text-muted;
+}
+
+.stepIconWrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: $radius-md;
+
+  .teal & {
+    background: rgba($color-primary, 0.1);
+    color: $color-primary;
+  }
+
+  .gold & {
+    background: $color-gold-bg;
+    color: $color-gold;
+  }
+}
+
+.stepDuration {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-medium;
+  padding: 5px 12px;
+  border-radius: $radius-full;
+  border: 1px solid $color-border;
+  color: $color-text-secondary;
+  background: $color-bg;
+  white-space: nowrap;
+
+  svg { color: $color-text-muted; }
+}
+
+.stepBody {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: $spacing-xl;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.stepLeft {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-sm;
+}
+
+.stepTitle {
+  font-size: $font-size-2xl;
+  font-weight: $font-weight-bold;
+  color: $color-text;
+  line-height: $line-height-tight;
+}
+
+.stepDesc {
+  font-size: $font-size-md;
+  color: $color-text-secondary;
+  line-height: $line-height-relaxed;
+}
+
+.activitiesBox {
+  margin-top: $spacing-xs;
+}
+
+.boxTitle {
+  font-size: $font-size-xs;
+  font-weight: $font-weight-semibold;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: $color-text-muted;
+  margin-bottom: $spacing-xs;
+}
+
+.activityList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.activityItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: $font-size-sm;
+  color: $color-text;
+  line-height: $line-height-normal;
+}
+
+.bullet {
+  flex-shrink: 0;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  margin-top: 7px;
+
+  .teal & { background: $color-primary; }
+  .gold & { background: $color-gold; }
+}
+
+.stepRight {
+  background: $color-bg;
+  border: 1px solid $color-border;
+  border-radius: $radius-md;
+  padding: $spacing-md;
+  height: fit-content;
+}
+
+.deliverableList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: $spacing-xs;
+}
+
+.deliverableItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: $font-size-sm;
+  color: $color-text;
+  line-height: $line-height-normal;
+
+  svg {
+    flex-shrink: 0;
+    margin-top: 1px;
+
+    .teal & { color: $color-primary; }
+    .gold & { color: $color-gold; }
+  }
+}
+
+// CTA
+
+.cta {
+  padding-block: $spacing-2xl;
+  background: $color-primary-bg;
+  border-top: 1px solid $color-border;
+}
+
+.ctaBox {
+  text-align: center;
+  max-width: 560px;
+  margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $spacing-sm;
+}
+
+.ctaTitle {
+  font-size: $font-size-3xl;
+  font-weight: $font-weight-bold;
+  color: $color-text;
+}
+
+.ctaText {
+  font-size: $font-size-md;
+  color: $color-text-secondary;
+  line-height: $line-height-relaxed;
+}

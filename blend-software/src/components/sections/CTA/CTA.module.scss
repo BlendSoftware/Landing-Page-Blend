@@ -1,0 +1,69 @@
+@use '@/styles/variables' as *;
+
+.section {
+  position: relative;
+  overflow: hidden;
+  padding-block: $spacing-3xl;
+  background: linear-gradient(
+    135deg,
+    $color-primary-bg 0%,
+    rgba($color-primary, 0.06) 40%,
+    rgba($color-gold, 0.05) 70%,
+    $color-white 100%
+  );
+  border-top: 1px solid $color-border;
+  border-bottom: 1px solid $color-border;
+}
+
+.bgPattern {
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(circle at 20% 50%, rgba($color-primary, 0.05) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba($color-primary-light, 0.06) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.inner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: $spacing-lg;
+}
+
+.textBlock {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $spacing-md;
+}
+
+.title {
+  font-size: clamp($font-size-3xl, 4vw, $font-size-5xl);
+  font-weight: $font-weight-extrabold;
+  line-height: $line-height-tight;
+  letter-spacing: -0.03em;
+  color: $color-text;
+}
+
+.accent {
+  color: $color-gold;
+}
+
+.desc {
+  font-size: $font-size-lg;
+  color: $color-text-secondary;
+  line-height: $line-height-relaxed;
+  max-width: 50ch;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+  flex-wrap: wrap;
+  justify-content: center;
+}

@@ -1,0 +1,259 @@
+﻿@use '@/styles/variables' as *;
+
+.main {
+  padding-top: calc(#{$nav-height} + 3px);
+}
+
+// HERO
+
+.hero {
+  background: $color-primary-bg;
+  padding-top: $spacing-xl;
+  padding-bottom: $spacing-xl;
+  border-bottom: 1px solid $color-border;
+}
+
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: $font-size-sm;
+  color: $color-text-muted;
+  margin-bottom: $spacing-md;
+
+  a {
+    color: $color-text-secondary;
+    text-decoration: none;
+    transition: color $transition-fast;
+
+    &:hover {
+      color: $color-primary;
+    }
+  }
+
+  span {
+    color: $color-text-muted;
+  }
+}
+
+.heroContent {
+  max-width: 680px;
+}
+
+.label {
+  display: inline-block;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-semibold;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: $color-primary;
+  background: rgba($color-primary, 0.1);
+  padding: 5px 12px;
+  border-radius: $radius-full;
+  margin-bottom: $spacing-sm;
+}
+
+.title {
+  font-size: clamp($font-size-4xl, 5vw, $font-size-5xl);
+  font-weight: $font-weight-extrabold;
+  line-height: $line-height-tight;
+  color: $color-text;
+  margin-bottom: $spacing-sm;
+}
+
+.titleAccent {
+  color: $color-primary;
+}
+
+.subtitle {
+  font-size: $font-size-lg;
+  color: $color-text-secondary;
+  line-height: $line-height-relaxed;
+}
+
+// SERVICES
+
+.services {
+  padding-block: $spacing-2xl;
+}
+
+.serviceCard {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: $spacing-xl;
+  align-items: start;
+  padding-block: $spacing-xl;
+  border-bottom: 1px solid $color-border;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  &.reverse {
+    .cardLeft { order: 2; }
+    .cardRight { order: 1; }
+  }
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+
+    &.reverse {
+      .cardLeft { order: 1; }
+      .cardRight { order: 2; }
+    }
+  }
+}
+
+.cardLeft {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-sm;
+}
+
+.cardNumber {
+  font-size: $font-size-xs;
+  font-weight: $font-weight-bold;
+  letter-spacing: 0.12em;
+  color: $color-text-muted;
+}
+
+.cardIconWrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border-radius: $radius-md;
+
+  .teal & {
+    background: rgba($color-primary, 0.1);
+    color: $color-primary;
+  }
+
+  .gold & {
+    background: $color-gold-bg;
+    color: $color-gold;
+  }
+}
+
+.cardTitle {
+  font-size: $font-size-3xl;
+  font-weight: $font-weight-bold;
+  color: $color-text;
+  line-height: $line-height-tight;
+}
+
+.cardSubtitle {
+  font-size: $font-size-md;
+  font-weight: $font-weight-semibold;
+  color: $color-text-secondary;
+}
+
+.cardDesc {
+  font-size: $font-size-md;
+  color: $color-text-secondary;
+  line-height: $line-height-relaxed;
+}
+
+.idealBox {
+  margin-top: $spacing-xs;
+  padding: $spacing-sm;
+  background: $color-bg;
+  border-radius: $radius-md;
+  border: 1px solid $color-border;
+}
+
+.idealLabel {
+  display: block;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-semibold;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: $color-text-muted;
+  margin-bottom: 6px;
+}
+
+.idealText {
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+  line-height: $line-height-normal;
+}
+
+.cardRight {
+  background: $color-surface;
+  border: 1px solid $color-border;
+  border-radius: $radius-lg;
+  padding: $spacing-md;
+  box-shadow: $shadow-sm;
+
+  position: sticky;
+  top: calc(#{$nav-height} + 24px);
+}
+
+.featuresTitle {
+  font-size: $font-size-sm;
+  font-weight: $font-weight-semibold;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: $color-text-muted;
+  margin-bottom: $spacing-sm;
+}
+
+.featuresList {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.featureItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: $font-size-sm;
+  color: $color-text;
+  line-height: $line-height-normal;
+
+  svg {
+    flex-shrink: 0;
+    margin-top: 2px;
+
+    .teal & {
+      color: $color-primary;
+    }
+
+    .gold & {
+      color: $color-gold;
+    }
+  }
+}
+
+// CTA
+
+.cta {
+  padding-block: $spacing-2xl;
+  background: $color-primary-bg;
+  border-top: 1px solid $color-border;
+}
+
+.ctaBox {
+  text-align: center;
+  max-width: 560px;
+  margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $spacing-sm;
+}
+
+.ctaTitle {
+  font-size: $font-size-3xl;
+  font-weight: $font-weight-bold;
+  color: $color-text;
+  line-height: $line-height-tight;
+}
+
+.ctaText {
+  font-size: $font-size-md;
+  color: $color-text-secondary;
+  line-height: $line-height-relaxed;
+}

@@ -1,0 +1,231 @@
+﻿@use '@/styles/variables' as *;
+
+.main {
+  padding-top: calc(#{$nav-height} + 3px);
+}
+
+// HERO
+
+.hero {
+  background: $color-bg;
+  padding-top: $spacing-xl;
+  padding-bottom: $spacing-lg;
+  border-bottom: 1px solid $color-border;
+}
+
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: $font-size-sm;
+  color: $color-text-muted;
+  margin-bottom: $spacing-md;
+
+  a {
+    color: $color-text-secondary;
+    text-decoration: none;
+    transition: color $transition-fast;
+    &:hover { color: $color-primary; }
+  }
+}
+
+.heroContent {
+  max-width: 680px;
+}
+
+.label {
+  display: inline-block;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-semibold;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: $color-text-muted;
+  background: $color-surface;
+  border: 1px solid $color-border;
+  padding: 4px 12px;
+  border-radius: $radius-full;
+  margin-bottom: $spacing-sm;
+}
+
+.title {
+  font-size: clamp($font-size-3xl, 4vw, $font-size-4xl);
+  font-weight: $font-weight-extrabold;
+  line-height: $line-height-tight;
+  color: $color-text;
+  margin-bottom: $spacing-xs;
+}
+
+.updated {
+  font-size: $font-size-sm;
+  color: $color-text-muted;
+}
+
+// BODY
+
+.body {
+  padding-block: $spacing-2xl;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: $spacing-xl;
+  align-items: start;
+
+  @media (max-width: 860px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+// Sidebar table of contents
+.toc {
+  position: sticky;
+  top: calc(#{$nav-height} + 24px);
+  background: $color-surface;
+  border: 1px solid $color-border;
+  border-radius: $radius-md;
+  padding: $spacing-sm;
+
+  @media (max-width: 860px) {
+    display: none;
+  }
+}
+
+.tocTitle {
+  font-size: $font-size-xs;
+  font-weight: $font-weight-semibold;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: $color-text-muted;
+  margin-bottom: 12px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid $color-border;
+}
+
+.tocList {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.tocLink {
+  display: block;
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+  text-decoration: none;
+  padding: 5px 8px;
+  border-radius: $radius-sm;
+  transition: background $transition-fast, color $transition-fast;
+
+  &:hover {
+    background: $color-bg;
+    color: $color-primary;
+  }
+}
+
+// Content
+.content {
+  min-width: 0;
+}
+
+.section {
+  margin-bottom: $spacing-xl;
+  scroll-margin-top: calc(#{$nav-height} + 32px);
+
+  &:last-child { margin-bottom: 0; }
+}
+
+.sectionTitle {
+  font-size: $font-size-xl;
+  font-weight: $font-weight-bold;
+  color: $color-text;
+  margin-bottom: $spacing-sm;
+  padding-bottom: 10px;
+  border-bottom: 2px solid $color-border;
+}
+
+.sectionTitle span {
+  color: $color-primary;
+  margin-right: 8px;
+}
+
+.text {
+  font-size: $font-size-md;
+  color: $color-text-secondary;
+  line-height: $line-height-relaxed;
+  margin-bottom: $spacing-sm;
+
+  &:last-child { margin-bottom: 0; }
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: $spacing-sm;
+  padding-left: 6px;
+}
+
+.listItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: $font-size-md;
+  color: $color-text-secondary;
+  line-height: $line-height-relaxed;
+}
+
+.bullet {
+  flex-shrink: 0;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: $color-primary;
+  margin-top: 9px;
+}
+
+.infoBox {
+  background: $color-primary-bg;
+  border: 1px solid rgba($color-primary, 0.25);
+  border-left: 3px solid $color-primary;
+  border-radius: $radius-md;
+  padding: $spacing-sm $spacing-md;
+  margin-block: $spacing-sm;
+}
+
+.infoText {
+  font-size: $font-size-sm;
+  color: $color-text;
+  line-height: $line-height-relaxed;
+
+  strong { font-weight: $font-weight-semibold; }
+}
+
+.contactBox {
+  margin-top: $spacing-md;
+  padding: $spacing-md;
+  background: $color-surface;
+  border: 1px solid $color-border;
+  border-radius: $radius-md;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.contactLabel {
+  font-size: $font-size-xs;
+  font-weight: $font-weight-semibold;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: $color-text-muted;
+}
+
+.contactEmail {
+  font-size: $font-size-md;
+  font-weight: $font-weight-medium;
+  color: $color-primary;
+  text-decoration: none;
+  transition: color $transition-fast;
+
+  &:hover { color: $color-primary-dark; }
+}

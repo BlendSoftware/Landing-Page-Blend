@@ -1,0 +1,197 @@
+@use '@/styles/variables' as *;
+
+// ═══════════════════════════════════════════════════════════════
+//  SERVICES
+// ═══════════════════════════════════════════════════════════════
+
+.section {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(160deg, $color-primary-bg 0%, $color-white 50%, $color-primary-bg 100%);
+}
+
+.bgShape {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 800px;
+  height: 600px;
+  background: radial-gradient(ellipse, rgba($color-primary, 0.05) 0%, transparent 65%);
+  pointer-events: none;
+}
+
+.header {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: $spacing-sm;
+  margin-bottom: $spacing-lg;
+
+  @media (max-width: 768px) {
+    align-items: center;
+    text-align: center;
+  }
+}
+
+.title {
+  max-width: 20ch;
+}
+
+.grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: $spacing-md;
+
+  @media (max-width: 1100px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (max-width: 560px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+// ── Base card ──────────────────────────────────────────────────
+.card {
+  background: $color-white;
+  border: 1px solid $color-border;
+  border-radius: $radius-lg;
+  padding: $spacing-md;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  position: relative;
+  overflow: hidden;
+  transition: box-shadow $transition-normal, transform $transition-normal, border-color $transition-normal;
+
+  // Left accent bar
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 3px;
+    height: 100%;
+    opacity: 0.5;
+    transition: opacity $transition-normal;
+  }
+
+  &:hover {
+    transform: translateY(-5px);
+    border-color: transparent;
+
+    &::before { opacity: 1; }
+    .iconWrap { transform: scale(1.08); }
+    .arrow { opacity: 1; }
+  }
+}
+
+// ── Teal variant ─────────────────────────────────────────────────
+.cardTeal {
+  &::before { background: linear-gradient(180deg, $color-primary, $color-primary-light); }
+
+  &:hover {
+    box-shadow: 0 16px 40px rgba($color-primary, 0.12);
+    .iconWrap { background: $color-primary; color: $color-white; }
+    .arrow { color: $color-primary; }
+  }
+
+  .iconWrap { background: $color-primary-bg; color: $color-primary; }
+  .featureCheck { color: $color-primary; }
+  .tag { color: $color-primary-dark; background: rgba($color-primary, 0.08); }
+}
+
+// ── Gold variant ─────────────────────────────────────────────────
+.cardGold {
+  &::before { background: linear-gradient(180deg, $color-gold, $color-gold-light); }
+
+  &:hover {
+    box-shadow: 0 16px 40px rgba($color-gold, 0.12);
+    .iconWrap { background: $color-gold; color: $color-white; }
+    .arrow { color: $color-gold; }
+  }
+
+  .iconWrap { background: $color-gold-bg; color: $color-gold; }
+  .featureCheck { color: $color-gold; }
+  .tag { color: $color-gold-dark; background: rgba($color-gold, 0.12); }
+}
+
+.cardTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.iconWrap {
+  width: 48px;
+  height: 48px;
+  border-radius: $radius-md;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background $transition-normal, color $transition-normal, transform $transition-normal;
+}
+
+.arrow {
+  color: $color-border;
+  opacity: 0.5;
+  transition: color $transition-normal, opacity $transition-normal;
+}
+
+.cardTitle {
+  font-size: $font-size-lg;
+  font-weight: $font-weight-semibold;
+  color: $color-text;
+  letter-spacing: -0.01em;
+  line-height: $line-height-snug;
+}
+
+.cardDesc {
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+  line-height: $line-height-relaxed;
+  flex: 1;
+}
+
+// ── Feature list ────────────────────────────────────────────────
+.features {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  border-top: 1px solid $color-border;
+  padding-top: 10px;
+}
+
+.featureItem {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-medium;
+  color: $color-text-secondary;
+}
+
+.featureCheck {
+  flex-shrink: 0;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.tag {
+  font-size: $font-size-xs;
+  font-weight: $font-weight-medium;
+  padding: 3px 10px;
+  border-radius: $radius-full;
+}

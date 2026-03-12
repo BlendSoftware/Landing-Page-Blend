@@ -1,0 +1,255 @@
+﻿@use '@/styles/variables' as *;
+
+.main {
+  padding-top: calc(#{$nav-height} + 3px);
+}
+
+// HERO
+
+.hero {
+  background: $color-bg;
+  padding-top: $spacing-xl;
+  padding-bottom: $spacing-xl;
+  border-bottom: 1px solid $color-border;
+}
+
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: $font-size-sm;
+  color: $color-text-muted;
+  margin-bottom: $spacing-md;
+
+  a {
+    color: $color-text-secondary;
+    text-decoration: none;
+    transition: color $transition-fast;
+
+    &:hover { color: $color-primary; }
+  }
+}
+
+.heroContent {
+  max-width: 680px;
+}
+
+.label {
+  display: inline-block;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-semibold;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: $color-primary;
+  background: rgba($color-primary, 0.1);
+  padding: 5px 12px;
+  border-radius: $radius-full;
+  margin-bottom: $spacing-sm;
+}
+
+.title {
+  font-size: clamp($font-size-4xl, 5vw, $font-size-5xl);
+  font-weight: $font-weight-extrabold;
+  line-height: $line-height-tight;
+  color: $color-text;
+  margin-bottom: $spacing-sm;
+}
+
+.titleAccent { color: $color-primary; }
+
+.subtitle {
+  font-size: $font-size-lg;
+  color: $color-text-secondary;
+  line-height: $line-height-relaxed;
+}
+
+// CATEGORIES
+
+.categories {
+  padding-block: $spacing-2xl;
+}
+
+.categoryBlock {
+  margin-bottom: $spacing-xl;
+  padding-bottom: $spacing-xl;
+  border-bottom: 1px solid $color-border;
+
+  &:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+  }
+}
+
+.catHeader {
+  margin-bottom: $spacing-md;
+}
+
+.catLabel {
+  display: inline-block;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-bold;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: $radius-full;
+  margin-bottom: 10px;
+
+  .teal & {
+    background: rgba($color-primary, 0.1);
+    color: $color-primary;
+  }
+
+  .gold & {
+    background: $color-gold-bg;
+    color: $color-gold-dark;
+  }
+}
+
+.catDesc {
+  font-size: $font-size-md;
+  color: $color-text-secondary;
+  line-height: $line-height-relaxed;
+  max-width: 600px;
+}
+
+.techGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: $spacing-sm;
+
+  @media (max-width: 900px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (max-width: 480px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.techCard {
+  background: $color-surface;
+  border: 1px solid $color-border;
+  border-radius: $radius-md;
+  padding: $spacing-sm;
+  transition: box-shadow $transition-fast, transform $transition-fast;
+
+  &:hover {
+    box-shadow: $shadow-sm;
+    transform: translateY(-2px);
+  }
+}
+
+.techTop {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.techName {
+  font-size: $font-size-md;
+  font-weight: $font-weight-bold;
+  color: $color-text;
+}
+
+.techTag {
+  font-size: 10px;
+  font-weight: $font-weight-semibold;
+  letter-spacing: 0.04em;
+  padding: 3px 8px;
+  border-radius: $radius-full;
+  white-space: nowrap;
+  flex-shrink: 0;
+
+  .teal & {
+    background: rgba($color-primary, 0.1);
+    color: $color-primary;
+  }
+
+  .gold & {
+    background: $color-gold-bg;
+    color: $color-gold-dark;
+  }
+}
+
+.techDesc {
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+  line-height: $line-height-normal;
+}
+
+// PRINCIPLES
+
+.principles {
+  padding-block: $spacing-2xl;
+  background: $color-primary-bg;
+  border-top: 1px solid $color-border;
+  border-bottom: 1px solid $color-border;
+}
+
+.principlesTitle {
+  font-size: $font-size-2xl;
+  font-weight: $font-weight-bold;
+  color: $color-text;
+  margin-bottom: $spacing-md;
+}
+
+.principlesGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: $spacing-md;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.principleCard {
+  padding: $spacing-md;
+  background: $color-surface;
+  border: 1px solid $color-border;
+  border-radius: $radius-md;
+  border-left: 3px solid $color-primary;
+}
+
+.principleHeading {
+  font-size: $font-size-md;
+  font-weight: $font-weight-semibold;
+  color: $color-text;
+  margin-bottom: 8px;
+}
+
+.principleText {
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+  line-height: $line-height-relaxed;
+}
+
+// CTA
+
+.cta {
+  padding-block: $spacing-2xl;
+}
+
+.ctaBox {
+  text-align: center;
+  max-width: 560px;
+  margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $spacing-sm;
+}
+
+.ctaTitle {
+  font-size: $font-size-3xl;
+  font-weight: $font-weight-bold;
+  color: $color-text;
+}
+
+.ctaText {
+  font-size: $font-size-md;
+  color: $color-text-secondary;
+  line-height: $line-height-relaxed;
+}

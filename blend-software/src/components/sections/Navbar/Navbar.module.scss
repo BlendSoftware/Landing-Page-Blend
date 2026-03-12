@@ -1,0 +1,215 @@
+﻿@use '@/styles/variables' as *;
+
+// ═══════════════════════════════════════════════════════════════
+//  NAVBAR — Floating pill
+// ═══════════════════════════════════════════════════════════════
+
+.header {
+  position: fixed;
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+  width: calc(100% - 48px);
+  max-width: 1020px;
+  background: rgba($color-white, 0.86);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border-radius: $radius-full;
+  border: 1px solid rgba($color-border, 0.75);
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.06), 0 0 0 1px rgba(0, 0, 0, 0.025);
+  transition:
+    background $transition-normal,
+    box-shadow $transition-normal,
+    border-color $transition-normal;
+
+  @media (max-width: 768px) {
+    top: 0;
+    left: 0;
+    right: 0;
+    transform: none;
+    width: 100%;
+    max-width: 100%;
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+    border-top: none;
+  }
+}
+
+.scrolled {
+  background: rgba($color-white, 0.96);
+  box-shadow: 0 4px 32px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(0, 0, 0, 0.04);
+  border-color: rgba($color-border, 1);
+}
+
+// ── Inner layout ─────────────────────────────────────────────
+.inner {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 56px;
+  padding: 0 20px 0 22px;
+}
+
+// ── Logo ─────────────────────────────────────────────────────
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  flex-shrink: 0;
+  transition: opacity $transition-normal;
+
+  &:hover { opacity: 0.72; }
+}
+
+.logoTexts {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  line-height: 1;
+}
+
+.logoName {
+  font-size: $font-size-md;
+  font-weight: $font-weight-bold;
+  color: $color-text;
+  letter-spacing: -0.025em;
+  line-height: 1.15;
+  white-space: nowrap;
+}
+
+.logoCity {
+  font-size: 9px;
+  font-weight: $font-weight-semibold;
+  color: $color-gold;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+// ── Nav links — centered absolutely ──────────────────────────
+.navLinks {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 24px;
+
+  @media (max-width: 768px) {
+    display: none;
+  }
+}
+
+.navSep {
+  width: 1px;
+  height: 14px;
+  background: rgba($color-border, 1);
+  flex-shrink: 0;
+}
+
+.navLink {
+  position: relative;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-medium;
+  color: $color-text-secondary;
+  text-decoration: none;
+  letter-spacing: 0.01em;
+  padding-bottom: 2px;
+  transition: color 250ms ease;
+  white-space: nowrap;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 1.5px;
+    background: $color-primary;
+    transform: translateX(-50%);
+    transition: width 260ms ease;
+    border-radius: 2px;
+  }
+
+  &:hover {
+    color: $color-text;
+
+    &::after {
+      width: 100%;
+    }
+  }
+}
+
+// ── CTA ──────────────────────────────────────────────────────
+.cta {
+  flex-shrink: 0;
+  margin-left: auto;
+
+  // Force pill shape on the button
+  :global(a), :global(button) {
+    border-radius: $radius-full !important;
+  }
+
+  @media (max-width: 768px) {
+    display: none;
+  }
+}
+
+// ── Mobile toggle ─────────────────────────────────────────────
+.toggle {
+  display: none;
+  color: $color-text;
+  padding: 4px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-left: auto;
+
+  @media (max-width: 768px) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+// ── Mobile menu ───────────────────────────────────────────────
+.mobileMenu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: rgba($color-white, 0.98);
+  backdrop-filter: blur(20px);
+  border-top: 1px solid $color-border;
+  border-bottom: 1px solid $color-border;
+  padding: $spacing-xs $spacing-md;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+}
+
+.mobileLink {
+  font-size: $font-size-md;
+  font-weight: $font-weight-medium;
+  color: $color-text;
+  padding: 14px 0;
+  border-bottom: 1px solid $color-border;
+  text-decoration: none;
+  transition: color 250ms ease, padding-left 200ms ease;
+
+  &:last-child { border-bottom: none; }
+
+  &:hover {
+    color: $color-primary;
+    padding-left: 6px;
+  }
+}
+
+.mobileCta {
+  padding-top: $spacing-xs;
+  padding-bottom: $spacing-xs;
+}

@@ -1,0 +1,88 @@
+@use '@/styles/variables' as *;
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: $font-sans;
+  font-weight: $font-weight-semibold;
+  border-radius: $radius-md;
+  border: 2px solid transparent;
+  transition: all $transition-normal;
+  cursor: pointer;
+  text-decoration: none;
+  white-space: nowrap;
+
+  span {
+    display: inline-block;
+  }
+
+  // ── Sizes ──────────────────────────────────
+  &.sm {
+    font-size: $font-size-sm;
+    padding: 8px 18px;
+    border-radius: $radius-sm;
+  }
+
+  &.md {
+    font-size: $font-size-md;
+    padding: 12px 26px;
+  }
+
+  &.lg {
+    font-size: $font-size-lg;
+    padding: 16px 36px;
+    border-radius: $radius-lg;
+  }
+
+  &.fullWidth {
+    width: 100%;
+  }
+
+  // ── Variants ───────────────────────────────
+  &.primary {
+    background-color: $color-primary;
+    color: $color-white;
+    border-color: $color-primary;
+    box-shadow: 0 4px 14px rgba($color-primary, 0.35);
+
+    &:hover {
+      background-color: $color-primary-dark;
+      border-color: $color-primary-dark;
+      box-shadow: 0 6px 20px rgba($color-primary, 0.45);
+      transform: translateY(-1px);
+    }
+
+    &:active {
+      transform: translateY(0);
+      box-shadow: 0 2px 8px rgba($color-primary, 0.3);
+    }
+  }
+
+  &.secondary {
+    background-color: transparent;
+    color: $color-primary;
+    border-color: $color-primary;
+
+    &:hover {
+      background-color: $color-primary-bg;
+      transform: translateY(-1px);
+    }
+
+    &:active {
+      transform: translateY(0);
+    }
+  }
+
+  &.ghost {
+    background-color: transparent;
+    color: $color-text-secondary;
+    border-color: transparent;
+
+    &:hover {
+      color: $color-primary;
+      background-color: $color-primary-bg;
+    }
+  }
+}
