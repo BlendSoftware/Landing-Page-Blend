@@ -1,215 +1,188 @@
-﻿@use '@/styles/variables' as *;
+@use '@/styles/variables' as *;
 
-// ═══════════════════════════════════════════════════════════════
-//  NAVBAR — Floating pill
-// ═══════════════════════════════════════════════════════════════
+@keyframes header-solid {
+  to {
+    background-color: rgba($paper, 0.94);
+    border-bottom-color: $line;
+  }
+}
 
 .header {
   position: fixed;
-  top: 16px;
-  left: 50%;
-  transform: translateX(-50%);
+  inset: 0 0 auto;
   z-index: 100;
-  width: calc(100% - 48px);
-  max-width: 1020px;
-  background: rgba($color-white, 0.86);
-  backdrop-filter: blur(24px) saturate(180%);
-  -webkit-backdrop-filter: blur(24px) saturate(180%);
-  border-radius: $radius-full;
-  border: 1px solid rgba($color-border, 0.75);
-  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.06), 0 0 0 1px rgba(0, 0, 0, 0.025);
-  transition:
-    background $transition-normal,
-    box-shadow $transition-normal,
-    border-color $transition-normal;
+  background-color: rgba($paper, 0.94);
+  border-bottom: 1px solid $line;
 
-  @media (max-width: 768px) {
-    top: 0;
-    left: 0;
-    right: 0;
-    transform: none;
-    width: 100%;
-    max-width: 100%;
-    border-radius: 0;
-    border-left: none;
-    border-right: none;
-    border-top: none;
+  // Where supported, the bar starts transparent and turns solid after
+  // the first 80px of scroll — no scroll listener needed.
+  @supports (animation-timeline: scroll()) {
+    background-color: rgba($paper, 0);
+    border-bottom-color: transparent;
+    animation: header-solid linear both;
+    animation-timeline: scroll(root);
+    animation-range: 0 80px;
+  }
+
+  &.isOpen {
+    background-color: $paper;
+    border-bottom-color: $line;
+    animation: none;
   }
 }
 
-.scrolled {
-  background: rgba($color-white, 0.96);
-  box-shadow: 0 4px 32px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(0, 0, 0, 0.04);
-  border-color: rgba($color-border, 1);
-}
-
-// ── Inner layout ─────────────────────────────────────────────
 .inner {
-  position: relative;
+  height: $nav-height;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  height: 56px;
-  padding: 0 20px 0 22px;
+  gap: $space-6;
 }
 
-// ── Logo ─────────────────────────────────────────────────────
 .logo {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   gap: 10px;
-  text-decoration: none;
   flex-shrink: 0;
-  transition: opacity $transition-normal;
-
-  &:hover { opacity: 0.72; }
 }
 
-.logoTexts {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  line-height: 1;
-}
-
+// Same light/bold pairing as the hero headline
 .logoName {
-  font-size: $font-size-md;
-  font-weight: $font-weight-bold;
-  color: $color-text;
-  letter-spacing: -0.025em;
-  line-height: 1.15;
-  white-space: nowrap;
-}
+  font-family: $font-display;
+  font-weight: 300;
+  font-stretch: 125%;
+  font-size: 1.15rem;
+  letter-spacing: -0.035em;
+  color: $ink;
 
-.logoCity {
-  font-size: 9px;
-  font-weight: $font-weight-semibold;
-  color: $color-gold;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-}
-
-// ── Nav links — centered absolutely ──────────────────────────
-.navLinks {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  align-items: center;
-  gap: 24px;
-
-  @media (max-width: 768px) {
-    display: none;
+  b {
+    font-weight: 800;
+    font-stretch: 112%;
   }
 }
 
-.navSep {
-  width: 1px;
-  height: 14px;
-  background: rgba($color-border, 1);
-  flex-shrink: 0;
+.nav {
+  margin-left: auto;
+  display: none;
+
+  @media (min-width: $bp-lg) {
+    display: block;
+  }
+}
+
+.navList {
+  display: flex;
+  gap: 4px;
 }
 
 .navLink {
-  position: relative;
-  font-size: $font-size-sm;
-  font-weight: $font-weight-medium;
-  color: $color-text-secondary;
-  text-decoration: none;
-  letter-spacing: 0.01em;
-  padding-bottom: 2px;
-  transition: color 250ms ease;
-  white-space: nowrap;
+  display: inline-block;
+  padding: 8px 14px;
+  border-radius: $radius-md;
+  font-family: $font-display;
+  font-stretch: 112%;
+  font-size: $text-sm;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: $ink-soft;
+  transition: color $dur-fast ease, background-color $dur-fast ease;
 
+  &:hover {
+    color: $ink;
+    background-color: rgba($teal-400, 0.14);
+  }
+
+  &[aria-current='page'] {
+    color: $ink;
+    box-shadow: inset 0 -2px 0 $gold-400;
+    border-radius: 0;
+  }
+}
+
+.cta {
+  display: none;
+
+  @media (min-width: $bp-sm) {
+    display: block;
+    margin-left: auto;
+  }
+
+  @media (min-width: $bp-lg) {
+    margin-left: 0;
+  }
+}
+
+.toggle {
+  margin-left: auto;
+  width: 48px;
+  height: 48px;
+  display: grid;
+  place-items: center;
+  border-radius: $radius-md;
+
+  @media (min-width: $bp-sm) {
+    margin-left: 0;
+  }
+
+  @media (min-width: $bp-lg) {
+    display: none;
+  }
+
+  &:hover {
+    background-color: rgba($teal-400, 0.14);
+  }
+}
+
+// Two bars that cross into an X when open
+.toggleBars {
+  position: relative;
+  width: 22px;
+  height: 10px;
+
+  &::before,
   &::after {
     content: '';
     position: absolute;
-    bottom: 0;
-    left: 50%;
-    width: 0;
-    height: 1.5px;
-    background: $color-primary;
-    transform: translateX(-50%);
-    transition: width 260ms ease;
+    left: 0;
+    width: 100%;
+    height: 2px;
     border-radius: 2px;
+    background: $ink;
+    transition: translate $dur-base $ease-out, rotate $dur-base $ease-out;
   }
 
-  &:hover {
-    color: $color-text;
+  &::before { top: 0; }
+  &::after  { bottom: 0; }
 
-    &::after {
-      width: 100%;
-    }
-  }
+  .isOpen &::before { translate: 0 4px; rotate: 45deg; }
+  .isOpen &::after  { translate: 0 -4px; rotate: -45deg; }
 }
 
-// ── CTA ──────────────────────────────────────────────────────
-.cta {
-  flex-shrink: 0;
-  margin-left: auto;
-
-  // Force pill shape on the button
-  :global(a), :global(button) {
-    border-radius: $radius-full !important;
-  }
-
-  @media (max-width: 768px) {
-    display: none;
-  }
-}
-
-// ── Mobile toggle ─────────────────────────────────────────────
-.toggle {
-  display: none;
-  color: $color-text;
-  padding: 4px;
-  background: none;
-  border: none;
-  cursor: pointer;
-  margin-left: auto;
-
-  @media (max-width: 768px) {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-}
-
-// ── Mobile menu ───────────────────────────────────────────────
 .mobileMenu {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  right: 0;
-  background: rgba($color-white, 0.98);
-  backdrop-filter: blur(20px);
-  border-top: 1px solid $color-border;
-  border-bottom: 1px solid $color-border;
-  padding: $spacing-xs $spacing-md;
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+  border-top: 1px solid $line;
+  background: $paper;
+  padding-block: $space-4 $space-6;
+  max-height: calc(100dvh - #{$nav-height});
+  overflow-y: auto;
+
+  @media (min-width: $bp-lg) {
+    display: none !important;
+  }
+
+  ul {
+    margin-bottom: $space-5;
+  }
 }
 
 .mobileLink {
-  font-size: $font-size-md;
-  font-weight: $font-weight-medium;
-  color: $color-text;
+  display: block;
   padding: 14px 0;
-  border-bottom: 1px solid $color-border;
-  text-decoration: none;
-  transition: color 250ms ease, padding-left 200ms ease;
+  font-family: $font-display;
+  font-size: $text-xl;
+  font-weight: 650;
+  letter-spacing: -0.02em;
+  border-bottom: 1px solid $line;
 
-  &:last-child { border-bottom: none; }
-
-  &:hover {
-    color: $color-primary;
-    padding-left: 6px;
+  &[aria-current='page'] {
+    color: $teal-700;
   }
-}
-
-.mobileCta {
-  padding-top: $spacing-xs;
-  padding-bottom: $spacing-xs;
 }

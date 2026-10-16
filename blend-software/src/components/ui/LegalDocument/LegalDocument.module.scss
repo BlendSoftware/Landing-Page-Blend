@@ -1,0 +1,131 @@
+@use '@/styles/variables' as *;
+
+.body {
+  background: $white;
+  padding-block: clamp(48px, 6vw, 88px) $section-pad;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: $space-7;
+
+  @media (min-width: $bp-lg) {
+    grid-template-columns: 260px minmax(0, 1fr);
+    gap: $space-8;
+    align-items: start;
+  }
+}
+
+.toc {
+  padding: $space-5;
+  border-radius: $radius-lg;
+  background: $paper;
+
+  @media (min-width: $bp-lg) {
+    position: sticky;
+    top: calc(#{$nav-height} + 32px);
+  }
+
+  ol {
+    display: grid;
+    gap: 2px;
+    list-style: decimal inside;
+    font-size: $text-sm;
+    color: $ink-muted;
+  }
+
+  a {
+    display: inline;
+    padding-block: 4px;
+    color: $ink-soft;
+
+    &:hover {
+      color: $teal-700;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+  }
+
+  li {
+    padding-block: 4px;
+  }
+}
+
+.tocTitle {
+  font-weight: 700;
+  font-size: $text-sm;
+  margin-bottom: $space-3;
+}
+
+.content {
+  max-width: 72ch;
+}
+
+.section {
+  & + & {
+    margin-top: $space-7;
+    padding-top: $space-7;
+    border-top: 1px solid $line;
+  }
+}
+
+.sectionTitle {
+  font-size: $text-2xl;
+  line-height: 1.15;
+  letter-spacing: -0.025em;
+  margin-bottom: $space-4;
+
+  span {
+    color: $teal-500;
+  }
+}
+
+.text {
+  color: $ink-soft;
+
+  & + & {
+    margin-top: $space-3;
+  }
+}
+
+.list {
+  margin-block: $space-4;
+  display: grid;
+  gap: 8px;
+  color: $ink-soft;
+
+  li {
+    position: relative;
+    padding-left: 22px;
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0.75em;
+      width: 12px;
+      height: 1px;
+      background: $ink;
+    }
+  }
+}
+
+.info {
+  margin-block: $space-4;
+  padding: $space-4 $space-5;
+  border-left: 2px solid $ink;
+  background: $stone;
+  border-radius: 0 $radius-md $radius-md 0;
+  color: $ink;
+}
+
+.contact {
+  margin-top: $space-4;
+  display: grid;
+  gap: 2px;
+
+  span {
+    font-weight: 700;
+  }
+}

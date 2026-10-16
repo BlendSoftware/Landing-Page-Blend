@@ -20,10 +20,23 @@ npm run dev
 
 npm run build
 
+## Project structure
+
+- `src/lib/site.ts`: business data (email, domain, location, nav). Change contact details here only.
+- `src/lib/metadata.ts`: per-page SEO metadata helper (title, description, canonical, Open Graph).
+- `src/content/`: shared copy (services, process, FAQ, positioning) used by the home and the inner pages.
+- `src/components/sections/`: home sections (Hero, Problem, Services, Process, Difference, Faq, CTA) plus Navbar and Footer.
+- `src/components/ui/`: Button, PageHero, ComparisonTable, LegalDocument, BlendLogo.
+- `src/styles/_variables.scss`: design tokens (palette, type scale, spacing, radii, motion).
+- `src/app/robots.ts`, `sitemap.ts`, `opengraph-image.tsx`, `icon.svg`, `apple-icon.tsx`: generated SEO assets.
+
+Set `NEXT_PUBLIC_SITE_URL` in production so canonical URLs, the sitemap and structured data use the real domain (defaults to `https://blendsoftware.tech`).
+
 ## Contact form email configuration
 
 Required environment variables:
 
+- NEXT_PUBLIC_SITE_URL: public URL of the site, no trailing slash.
 - RESEND_API_KEY: API key from Resend.
 - RESEND_FROM_EMAIL: sender email verified in Resend.
 - CONTACT_TO_EMAIL: destination inbox where form submissions are received.
@@ -31,8 +44,10 @@ Required environment variables:
 Notes:
 
 - The endpoint is src/app/api/contacto/route.ts.
-- If required fields are missing, API returns 400.
-- If mail provider config fails, API returns 500.
+- If required fields are missing or the email is invalid, API returns 400.
+- Optional fields (empresa, servicio, presupuesto) are included in the email when present.
+- A hidden honeypot field (`website`) silently drops bot submissions.
+- If mail provider config fails or Resend rejects the send, API returns 500.
 
 ## Quick API test
 

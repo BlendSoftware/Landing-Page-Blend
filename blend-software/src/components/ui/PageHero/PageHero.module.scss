@@ -1,0 +1,65 @@
+@use '@/styles/variables' as *;
+
+.hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding-top: calc(#{$nav-height} + clamp(48px, 7vw, 104px));
+  padding-bottom: clamp(56px, 8vw, 112px);
+}
+
+.inner {
+  position: relative;
+}
+
+.breadcrumb ol {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  font-size: $text-sm;
+  color: $ink-muted;
+  margin-bottom: $space-6;
+
+  li + li::before {
+    content: '/';
+    margin-right: 8px;
+    color: $line-strong;
+  }
+
+  a {
+    color: $ink-soft;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-color: rgba($ink, 0.3);
+
+    &:hover {
+      color: $ink;
+      text-decoration-color: $ink;
+    }
+  }
+}
+
+.title {
+  @include display($display-1, 300);
+  max-width: 17ch;
+
+  @media (prefers-reduced-motion: no-preference) {
+    animation: settle 900ms $ease-out both;
+  }
+}
+
+.lead {
+  margin-top: $space-5;
+  max-width: 56ch;
+  font-size: $text-lg;
+  color: $ink-soft;
+}
+
+.extra {
+  margin-top: $space-6;
+}
+
+@keyframes settle {
+  from { opacity: 0; translate: 0 0.25em; filter: blur(6px); }
+  to   { opacity: 1; translate: 0 0; filter: blur(0); }
+}

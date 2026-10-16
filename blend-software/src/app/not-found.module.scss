@@ -1,0 +1,34 @@
+@use '@/styles/variables' as *;
+
+.main {
+  min-height: 70vh;
+  padding-top: calc(#{$nav-height} + clamp(56px, 10vw, 136px));
+  padding-bottom: $section-pad;
+  background: $paper;
+}
+
+.code {
+  font-weight: 700;
+  color: $ochre-700;
+}
+
+.title {
+  margin-top: $space-3;
+  @include display($display-2, 300);
+  line-height: 1.02;
+  max-width: 18ch;
+}
+
+.text {
+  margin-top: $space-5;
+  font-size: $text-lg;
+  color: $ink-soft;
+  max-width: 50ch;
+}
+
+.actions {
+  margin-top: $space-6;
+  display: flex;
+  flex-wrap: wrap;
+  gap: $space-3;
+}

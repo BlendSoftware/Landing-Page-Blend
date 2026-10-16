@@ -1,0 +1,82 @@
+@use '@/styles/variables' as *;
+
+.wrap {
+  // Positioned so the absolutely positioned visually-hidden labels are clipped too
+  position: relative;
+  overflow-x: auto;
+  border-radius: $radius-lg;
+  border: 1px solid $line;
+  background: $white;
+}
+
+.table {
+  width: 100%;
+  min-width: 480px;
+  border-collapse: collapse;
+  font-size: $text-sm;
+
+  th,
+  td {
+    padding: 14px 16px;
+    border-bottom: 1px solid $line;
+    text-align: center;
+  }
+
+  tbody tr:last-child > * {
+    border-bottom: none;
+  }
+
+  thead th {
+    font-weight: 700;
+    color: $ink-soft;
+    font-size: $text-sm;
+  }
+
+  tbody th {
+    text-align: left;
+    font-weight: 550;
+    color: $ink;
+  }
+}
+
+.blendCol {
+  background: $stone;
+
+  thead & {
+    color: $ink !important;
+    font-family: $font-display;
+    font-size: $text-lg !important;
+    letter-spacing: -0.02em;
+  }
+}
+
+.mark {
+  display: inline-grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+
+  svg {
+    width: 14px;
+    height: 14px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2.2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+}
+
+.yes {
+  color: $ink;
+}
+
+.no {
+  color: $ink-muted;
+}
+
+.strong {
+  color: $white;
+  background: $ink;
+}
