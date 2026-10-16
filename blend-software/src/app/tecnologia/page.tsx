@@ -1,80 +1,82 @@
-﻿import { Metadata } from 'next';
-import Link from 'next/link';
-import { ArrowRight } from 'lucide-react';
+import type { Metadata } from 'next';
 import Navbar from '@/components/sections/Navbar';
 import Footer from '@/components/sections/Footer';
-import Button from '@/components/ui/Button';
+import CTA from '@/components/sections/CTA';
+import PageHero from '@/components/ui/PageHero/PageHero';
+import { pageMetadata } from '@/lib/metadata';
 import styles from './page.module.scss';
 
-export const metadata: Metadata = {
-  title: 'Tecnologia — Blend Software',
-  description: 'Conoce las tecnologias con las que construimos software robusto, escalable y moderno para empresas.',
-};
+export const metadata: Metadata = pageMetadata({
+  title: 'Tecnología: el stack con el que desarrollamos',
+  description:
+    'React, Next.js, TypeScript, Node.js, Python, Go, PostgreSQL, Docker e IA: las tecnologías con las que construimos software robusto y mantenible.',
+  path: '/tecnologia',
+});
 
 const categories = [
   {
     id: 'frontend',
     title: 'Frontend',
-    color: 'teal' as const,
-    description: 'Interfaces modernas, rapidas y accesibles. Priorizamos la velocidad de carga y la experiencia de usuario.',
+    tone: 'teal',
+    description: 'Interfaces rápidas, accesibles y fáciles de usar para tu equipo y tus clientes.',
     techs: [
-      { name: 'React', tag: 'Biblioteca UI', desc: 'Componentes reutilizables para interfaces dinamicas y mantenibles.' },
-      { name: 'Next.js', tag: 'Framework', desc: 'Renderizado hibrido (SSR/SSG), routing y optimizaciones de performance.' },
-      { name: 'TypeScript', tag: 'Lenguaje', desc: 'Codigo mas seguro, documentado y facil de escalar en equipo.' },
-      { name: 'Tailwind / SCSS', tag: 'Estilos', desc: 'Diseno pixel-perfect con sistema de tokens y variables consistentes.' },
+      { name: 'React', tag: 'Biblioteca de interfaces', desc: 'Componentes reutilizables para interfaces dinámicas y mantenibles.' },
+      { name: 'Next.js', tag: 'Framework', desc: 'Renderizado en servidor, rutas y optimizaciones de rendimiento.' },
+      { name: 'TypeScript', tag: 'Lenguaje', desc: 'Código más seguro y fácil de mantener a medida que crece.' },
+      { name: 'Tailwind / SCSS', tag: 'Estilos', desc: 'Sistemas de diseño consistentes con tokens y variables.' },
     ],
   },
   {
     id: 'backend',
     title: 'Backend',
-    color: 'gold' as const,
-    description: 'APIs robustas, logica de negocio compleja y arquitecturas que escalan con tu operacion.',
+    tone: 'gold',
+    description: 'APIs y lógica de negocio que acompañan el crecimiento de tu operación.',
     techs: [
-      { name: 'Node.js', tag: 'Runtime', desc: 'Servidor asincronico de alta performance para APIs y servicios en tiempo real.' },
-      { name: 'Go', tag: 'Lenguaje', desc: 'Alto rendimiento y concurrencia nativa para microservicios y backends exigentes.' },
-      { name: 'Python', tag: 'Lenguaje', desc: 'Ideal para automatizaciones, scripts y soluciones de IA y data.' },
-      { name: 'FastAPI', tag: 'Framework', desc: 'APIs modernas con documentacion automatica y validacion de tipos.' },
-      { name: 'PostgreSQL', tag: 'Base de datos', desc: 'Base de datos relacional confiable para datos estructurados y complejos.' },
+      { name: 'Node.js', tag: 'Entorno de ejecución', desc: 'Servidores para APIs y servicios en tiempo real.' },
+      { name: 'Go', tag: 'Lenguaje', desc: 'Alto rendimiento y concurrencia para servicios exigentes.' },
+      { name: 'Python', tag: 'Lenguaje', desc: 'Automatizaciones, procesamiento de datos e inteligencia artificial.' },
+      { name: 'FastAPI', tag: 'Framework', desc: 'APIs modernas con documentación y validación automáticas.' },
+      { name: 'PostgreSQL', tag: 'Base de datos', desc: 'Base relacional confiable para datos estructurados.' },
     ],
   },
   {
     id: 'cloud',
     title: 'Cloud y DevOps',
-    color: 'teal' as const,
-    description: 'Infraestructura automatizada, deployments confiables y sistemas que no se caen cuando mas los necesitas.',
+    tone: 'teal',
+    description: 'Infraestructura automatizada y publicaciones confiables, sin sorpresas.',
     techs: [
-      { name: 'AWS', tag: 'Cloud', desc: 'Servicios gestionados para hosting, almacenamiento, colas y funciones serverless.' },
-      { name: 'Docker', tag: 'Contenedores', desc: 'Ambientes consistentes en desarrollo y produccion, sin sorpresas.' },
-      { name: 'GitHub Actions', tag: 'CI/CD', desc: 'Pipelines automatizados de testing y deployment continuo.' },
-      { name: 'Vercel / Railway', tag: 'Hosting', desc: 'Deployments instantaneos para frontends y backends con zero-config.' },
+      { name: 'AWS', tag: 'Cloud', desc: 'Hosting, almacenamiento, colas y funciones serverless.' },
+      { name: 'Docker', tag: 'Contenedores', desc: 'El mismo entorno en desarrollo y en producción.' },
+      { name: 'GitHub Actions', tag: 'Integración continua', desc: 'Pruebas y publicaciones automatizadas.' },
+      { name: 'Vercel / Railway', tag: 'Hosting', desc: 'Publicación simple de frontends y backends.' },
     ],
   },
   {
-    id: 'ai',
-    title: 'IA y Datos',
-    color: 'gold' as const,
-    description: 'Modelos de lenguaje, vision artificial y automatizacion avanzada para resolver problemas que antes requerians un equipo entero.',
+    id: 'ia',
+    title: 'IA y datos',
+    tone: 'ochre',
+    description: 'Modelos de lenguaje y datos para resolver tareas que antes requerían mucho trabajo manual.',
     techs: [
-      { name: 'OpenAI API', tag: 'LLM', desc: 'GPT-4 y embeddings para chatbots, analisis semántico y generacion de contenido.' },
-      { name: 'LangChain', tag: 'Framework IA', desc: 'Orquestacion de agentes, RAG y pipelines de IA complejos.' },
-      { name: 'Redis', tag: 'Cache/Queues', desc: 'Colas de mensajes y cache para sistemas de alta concurrencia.' },
-      { name: 'MongoDB', tag: 'Base de datos', desc: 'Almacenamiento flexible para documentos, logs y datos semiestructurados.' },
+      { name: 'OpenAI y Gemini', tag: 'Modelos de lenguaje', desc: 'Asistentes, análisis de texto y extracción de datos.' },
+      { name: 'LangChain', tag: 'Framework de IA', desc: 'Orquestación de agentes y búsqueda sobre tus documentos.' },
+      { name: 'Redis', tag: 'Caché y colas', desc: 'Colas de tareas y caché para sistemas con mucha carga.' },
+      { name: 'MongoDB', tag: 'Base de datos', desc: 'Almacenamiento flexible para documentos y registros.' },
     ],
   },
-];
+] as const;
 
 const principles = [
   {
-    title: 'Elegimos la herramienta correcta',
-    text: 'No hay tecnologia perfecta para todo. Evaluamos las opciones y elegimos la que mejor se adapta a tu proyecto y equipo.',
+    title: 'La herramienta correcta para cada problema',
+    text: 'No hay una tecnología perfecta para todo. Elegimos la que mejor se adapta a tu proyecto y a quien lo va a mantener.',
   },
   {
-    title: 'Codigo mantenible primero',
-    text: 'Escribimos codigo que cualquier desarrollador competente puede leer, entender y modificar. Sin magia negra.',
+    title: 'Código mantenible primero',
+    text: 'Escribimos código que cualquier desarrollador competente pueda leer, entender y modificar.',
   },
   {
-    title: 'Sin lock-in propietario',
-    text: 'Evitamos dependencias excesivas en plataformas cerradas. Tu codigo es tuyo y debe poder sobrevivir sin nosotros.',
+    title: 'Sin dependencias cerradas',
+    text: 'Evitamos atarte a plataformas propietarias. Tu código es tuyo y tiene que poder vivir sin nosotros.',
   },
 ];
 
@@ -82,84 +84,61 @@ export default function TecnologiaPage() {
   return (
     <>
       <Navbar />
-      <main className={styles.main}>
-        {/* Hero */}
-        <section className={styles.hero}>
-          <div className="container">
-            <nav className={styles.breadcrumb} aria-label="Breadcrumb">
-              <Link href="/">Inicio</Link>
-              <span>/</span>
-              <span>Tecnologia</span>
-            </nav>
-            <div className={styles.heroContent}>
-              <span className={styles.label}>Nuestro stack</span>
-              <h1 className={styles.title}>
-                Las mejores herramientas<br />
-                <span className={styles.titleAccent}>para cada trabajo</span>
-              </h1>
-              <p className={styles.subtitle}>
-                Usamos tecnologias probadas en produccion, con comunidades activas
-                y documentacion de primera. Sin experimentos en proyectos reales.
-              </p>
-            </div>
-          </div>
-        </section>
+      <main id="contenido">
+        <PageHero
+          crumb="Tecnología"
+          path="/tecnologia"
+          title="Tecnología probada para cada trabajo"
+          lead="Usamos herramientas con comunidades activas, buena documentación y años en producción. No experimentamos con tu proyecto."
+        />
 
-        {/* Tech categories */}
-        <section className={styles.categories}>
+        <section className={styles.body} aria-label="Stack tecnológico">
           <div className="container">
             {categories.map((cat) => (
-              <div key={cat.id} className={`${styles.categoryBlock} ${styles[cat.color]}`}>
-                <div className={styles.catHeader}>
-                  <span className={styles.catLabel}>{cat.title}</span>
+              <div key={cat.id} id={cat.id} className={`${styles.category} ${styles[cat.tone]}`}>
+                <div className={styles.catHead}>
+                  <h2 className={styles.catTitle}>{cat.title}</h2>
                   <p className={styles.catDesc}>{cat.description}</p>
                 </div>
-                <div className={styles.techGrid}>
-                  {cat.techs.map((tech) => (
-                    <div key={tech.name} className={styles.techCard}>
-                      <div className={styles.techTop}>
-                        <span className={styles.techName}>{tech.name}</span>
-                        <span className={styles.techTag}>{tech.tag}</span>
-                      </div>
-                      <p className={styles.techDesc}>{tech.desc}</p>
+                <dl className={styles.techList}>
+                  {cat.techs.map((t) => (
+                    <div key={t.name} className={styles.tech}>
+                      <dt>
+                        <span className={styles.techName}>{t.name}</span>
+                        <span className={styles.techTag}>{t.tag}</span>
+                      </dt>
+                      <dd>{t.desc}</dd>
                     </div>
                   ))}
-                </div>
+                </dl>
               </div>
             ))}
           </div>
         </section>
 
-        {/* Principles */}
-        <section className={styles.principles}>
+        <section className={styles.principles} aria-labelledby="principles-title">
           <div className="container">
-            <h2 className={styles.principlesTitle}>Nuestra filosofia tecnica</h2>
-            <div className={styles.principlesGrid}>
-              {principles.map((p) => (
-                <div key={p.title} className={styles.principleCard}>
-                  <h3 className={styles.principleHeading}>{p.title}</h3>
-                  <p className={styles.principleText}>{p.text}</p>
-                </div>
-              ))}
+            <div className={styles.principlesInner}>
+              <h2 id="principles-title" className={styles.principlesTitle}>
+                Cómo elegimos
+              </h2>
+              <ul className={styles.principleList}>
+                {principles.map((p) => (
+                  <li key={p.title}>
+                    <h3>{p.title}</h3>
+                    <p>{p.text}</p>
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
         </section>
 
-        {/* CTA */}
-        <section className={styles.cta}>
-          <div className="container">
-            <div className={styles.ctaBox}>
-              <h2 className={styles.ctaTitle}>Hablemos de tu proyecto</h2>
-              <p className={styles.ctaText}>
-                No te preocupes por la tecnologia, eso es nuestro trabajo.
-                Contanos el problema y encontramos la solucion correcta.
-              </p>
-              <Button variant="primary" size="lg" icon={ArrowRight} as="a" href="/#contact">
-                Iniciar conversacion
-              </Button>
-            </div>
-          </div>
-        </section>
+        <CTA
+          title="La tecnología es nuestro trabajo"
+          text="No hace falta que sepas qué stack necesitás. Contanos el problema y elegimos la solución correcta."
+          action="Iniciar la conversación"
+        />
       </main>
       <Footer />
     </>

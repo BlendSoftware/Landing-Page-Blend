@@ -1,57 +1,55 @@
-import React from 'react';
+import Link from 'next/link';
+import type { ComponentPropsWithoutRef, ReactNode } from 'react';
 import styles from './Button.module.scss';
-import { LucideIcon } from 'lucide-react';
 
-type ButtonVariant = 'primary' | 'secondary' | 'ghost';
+type ButtonVariant = 'primary' | 'secondary' | 'ink' | 'sun' | 'quiet';
 type ButtonSize = 'sm' | 'md' | 'lg';
 
-interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+interface CommonProps {
   variant?: ButtonVariant;
   size?: ButtonSize;
-  icon?: LucideIcon;
-  iconPosition?: 'left' | 'right';
   fullWidth?: boolean;
-  as?: 'button' | 'a';
-  href?: string;
+  className?: string;
+  children: ReactNode;
 }
 
-export default function Button({
-  variant = 'primary',
-  size = 'md',
-  icon: Icon,
-  iconPosition = 'right',
-  fullWidth = false,
-  children,
-  className,
-  as: Tag = 'button',
-  href,
-  ...props
-}: ButtonProps) {
-  const cls = [
-    styles.btn,
-    styles[variant],
-    styles[size],
-    fullWidth ? styles.fullWidth : '',
-    className ?? '',
-  ]
+type LinkButtonProps = CommonProps & { href: string } & Omit<ComponentPropsWithoutRef<'a'>, 'href' | 'className'>;
+type NativeButtonProps = CommonProps & { href?: undefined } & Omit<ComponentPropsWithoutRef<'button'>, 'className'>;
+
+export type ButtonProps = LinkButtonProps | NativeButtonProps;
+
+const isInternal = (href: string) => href.startsWith('/') || href.startsWith('#');
+
+/**
+ * Renders a Next.js <Link> for internal routes, a plain <a> for mailto/external
+ * URLs and a <button> when no href is given — so every button does something.
+ */
+export default function Button(props: ButtonProps) {
+  const { variant = 'primary', size = 'md', fullWidth = false, className, children } = props;
+  const cls = [styles.btn, styles[variant], styles[size], fullWidth && styles.fullWidth, className]
     .filter(Boolean)
     .join(' ');
 
-  if (Tag === 'a') {
+  if (props.href !== undefined) {
+    const { href, variant: _v, size: _s, fullWidth: _f, className: _c, children: _ch, ...rest } = props;
+    if (isInternal(href)) {
+      return (
+        <Link href={href} className={cls} {...rest}>
+          {children}
+        </Link>
+      );
+    }
     return (
-      <a href={href} className={cls}>
-        {Icon && iconPosition === 'left' && <Icon size={16} strokeWidth={2} />}
-        <span>{children}</span>
-        {Icon && iconPosition === 'right' && <Icon size={16} strokeWidth={2} />}
+      <a href={href} className={cls} {...rest}>
+        {children}
       </a>
     );
   }
 
+  const { variant: _v, size: _s, fullWidth: _f, className: _c, children: _ch, href: _h, ...rest } = props;
   return (
-    <button className={cls} {...props}>
-      {Icon && iconPosition === 'left' && <Icon size={16} strokeWidth={2} />}
-      <span>{children}</span>
-      {Icon && iconPosition === 'right' && <Icon size={16} strokeWidth={2} />}
+    <button className={cls} {...rest}>
+      {children}
     </button>
   );
 }

@@ -1,29 +1,35 @@
-import { ArrowRight } from 'lucide-react';
 import Button from '@/components/ui/Button';
+import GradientBackdrop from '@/components/ui/GradientBackdrop/GradientBackdrop';
+import { site } from '@/lib/site';
 import styles from './CTA.module.scss';
 
-export default function CTA() {
-  return (
-    <section className={styles.section}>
-      <div className={styles.bgPattern} aria-hidden="true" />
-      <div className="container">
-        <div className={styles.inner}>
-          <div className={styles.textBlock}>
-            <h2 className={styles.title}>
-              Construyamos el software que
-              <br />
-              <span className={styles.accent}>tu empresa necesita</span>
-            </h2>
-            <p className={styles.desc}>
-              Cada empresa tiene desafíos únicos. Contanos el tuyo y encontremos juntos
-              la solución de software que lo resuelva de verdad.
-            </p>
-          </div>
+interface CTAProps {
+  title?: string;
+  text?: string;
+  action?: string;
+}
 
+export default function CTA({
+  title = '¿Lo charlamos?',
+  text = `La primera conversación es gratis y sin compromiso. Te respondemos en ${site.responseTime} con una evaluación honesta de lo que se puede hacer.`,
+  action = 'Contanos tu proyecto',
+}: CTAProps) {
+  return (
+    <section className={styles.section} aria-labelledby="cta-title">
+      <GradientBackdrop />
+      <div className={`container ${styles.inner}`}>
+        <h2 id="cta-title" className={styles.title}>
+          {title}
+        </h2>
+        <div className={styles.body}>
+          <p className={styles.text}>{text}</p>
           <div className={styles.actions}>
-            <Button variant="primary" size="lg" icon={ArrowRight}>
-              Iniciar proyecto
+            <Button href="/contacto" size="lg">
+              {action}
             </Button>
+            <a href={`mailto:${site.email}`} className={styles.mail}>
+              {site.email}
+            </a>
           </div>
         </div>
       </div>

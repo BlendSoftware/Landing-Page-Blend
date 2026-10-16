@@ -1,85 +1,78 @@
-import { Metadata } from 'next';
-import Link from 'next/link';
-import { Clock, TrendingUp, Users, ArrowRight, BarChart2, ShieldCheck, Settings2 } from 'lucide-react';
+import type { Metadata } from 'next';
 import Navbar from '@/components/sections/Navbar';
 import Footer from '@/components/sections/Footer';
-import Button from '@/components/ui/Button';
+import CTA from '@/components/sections/CTA';
+import PageHero from '@/components/ui/PageHero/PageHero';
+import { pageMetadata } from '@/lib/metadata';
 import styles from './page.module.scss';
 
-export const metadata: Metadata = {
-  title: 'Resultados — Blend Software',
-  description: 'Impacto real en empresas que eligieron Blend Software para automatizar procesos y desarrollar software a medida.',
-};
+export const metadata: Metadata = pageMetadata({
+  title: 'Casos: qué cambia con un software a medida',
+  description:
+    'Ejemplos de problemas que resolvemos en logística, servicios profesionales y retail: cómo era la operación, qué construimos y qué cambia en el día a día.',
+  path: '/resultados',
+});
 
-const stats = [
-  { value: '18h', label: 'por semana ahorradas en promedio por equipo',             icon: Clock },
-  { value: '60%', label: 'reducción de errores operativos en los primeros 3 meses', icon: ShieldCheck },
-  { value: '3×',  label: 'más rápido el onboarding de nuevos empleados',            icon: Users },
-  { value: '40%', label: 'de reducción en costos operativos en automatizaciones',   icon: TrendingUp },
-];
-
+// Representative scenarios. Replace with named case studies (and real metrics)
+// once clients approve publishing them.
 const cases = [
   {
     industry: 'Logística',
-    color: 'teal' as const,
-    problem:
-      'El equipo tardaba 4 horas diarias consolidando pedidos de 3 sistemas distintos en una planilla de Excel, con errores frecuentes en los despachos.',
-    solution:
-      'Panel centralizado que consolida pedidos en tiempo real, genera remitos automáticos y notifica al equipo de seguimiento sin intervención manual.',
-    results: [
-      'Proceso reducido de 4 horas a menos de 10 minutos',
-      'Reducción del 80% en errores de despacho',
-      'Visibilidad en tiempo real del estado de cada pedido',
+    tone: 'teal',
+    before:
+      'El equipo consolidaba a mano los pedidos de tres sistemas distintos en una planilla, todos los días, con errores frecuentes en los despachos.',
+    built:
+      'Un panel que reúne los pedidos en tiempo real, genera los remitos automáticamente y avisa al equipo de seguimiento sin intervención manual.',
+    after: [
+      'La consolidación diaria deja de ser una tarea manual',
+      'Menos errores de despacho por datos mal copiados',
+      'Estado de cada pedido visible para todo el equipo',
     ],
   },
   {
     industry: 'Servicios profesionales',
-    color: 'gold' as const,
-    problem:
-      'Contratos, facturas y seguimiento de horas se manejaban en 4 herramientas distintas. Los datos estaban desactualizados y la facturación llegaba tarde.',
-    solution:
-      'Plataforma interna que unifica clientes, proyectos, horas trabajadas y facturación, integrada con el sistema contable existente.',
-    results: [
+    tone: 'gold',
+    before:
+      'Contratos, horas trabajadas y facturación vivían en cuatro herramientas distintas. Los datos estaban desactualizados y la facturación salía tarde.',
+    built:
+      'Una plataforma interna que unifica clientes, proyectos, horas y facturación, conectada con el sistema contable existente.',
+    after: [
       'Facturación generada automáticamente al cierre de cada mes',
-      'Visibilidad completa de rentabilidad por proyecto',
-      '12 horas semanales recuperadas por el área administrativa',
+      'Rentabilidad visible por proyecto y por cliente',
+      'El área administrativa recupera tiempo para tareas de valor',
     ],
   },
   {
-    industry: 'Retail / E-commerce',
-    color: 'teal' as const,
-    problem:
-      'El stock entre el local físico y el e-commerce se desincronizaba constantemente, generando ventas de productos sin inventario real disponible.',
-    solution:
-      'Sincronización bidireccional en tiempo real del inventario entre el punto de venta y la tienda online, con alertas automáticas de stock bajo.',
-    results: [
-      'Cero ventas de productos sin stock desde la implementación',
-      'Alertas automáticas cuando el stock cae del umbral configurado',
-      '2 horas diarias de actualización manual eliminadas',
+    industry: 'Retail y e-commerce',
+    tone: 'ochre',
+    before:
+      'El stock del local y el de la tienda online se desincronizaban, y se vendían productos que en realidad no estaban disponibles.',
+    built:
+      'Sincronización en los dos sentidos del inventario entre el punto de venta y la tienda online, con alertas cuando el stock baja de un mínimo.',
+    after: [
+      'Un único stock para el local y la tienda online',
+      'Alertas automáticas antes de quedarse sin productos',
+      'Sin actualizaciones manuales de inventario',
     ],
   },
-];
+] as const;
 
-const benefits = [
+const gains = [
   {
-    icon: Clock,
     title: 'Tiempo recuperado',
-    desc: 'Las horas que tu equipo dedicaba a tareas manuales se redirigen a trabajo que realmente genera valor para el negocio.',
+    text: 'Las horas que se iban en tareas manuales vuelven al trabajo que hace crecer el negocio.',
   },
   {
-    icon: ShieldCheck,
     title: 'Menos errores',
-    desc: 'Los procesos automatizados eliminan el error humano y aumentan la confiabilidad de la información en toda la empresa.',
+    text: 'Cuando los datos no se copian a mano, dejan de aparecer los errores de tipeo y las versiones distintas.',
   },
   {
-    icon: BarChart2,
-    title: 'Visibilidad total',
-    desc: 'Tomás decisiones con datos reales y actualizados, no con estimaciones o planillas que siempre están un paso atrás.',
+    title: 'Decisiones con datos al día',
+    text: 'Ves lo que pasa ahora, no lo que decía la planilla de la semana pasada.',
   },
   {
-    icon: Settings2,
-    title: 'Operación escalable',
-    desc: 'Tu sistema crece con vos. Podés incorporar más clientes, pedidos o empleados sin que la operación se rompa.',
+    title: 'Una operación que escala',
+    text: 'Podés sumar clientes, pedidos o personas sin que el sistema se convierta en el cuello de botella.',
   },
 ];
 
@@ -87,131 +80,71 @@ export default function ResultadosPage() {
   return (
     <>
       <Navbar />
-      <main className={styles.main}>
+      <main id="contenido">
+        <PageHero
+          crumb="Casos"
+          path="/resultados"
+          title="Qué cambia cuando ordenamos tu operación"
+          lead="Cada proyecto empieza con un problema concreto del negocio. Estos son escenarios representativos de los que resolvemos: cómo era el día a día, qué construimos y qué cambia después."
+        />
 
-        {/* Hero */}
-        <section className={styles.hero}>
+        <section className={styles.cases} aria-label="Escenarios">
           <div className="container">
-            <nav className={styles.breadcrumb} aria-label="Breadcrumb">
-              <Link href="/">Inicio</Link>
-              <span>/</span>
-              <span>Resultados</span>
-            </nav>
-            <div className={styles.heroContent}>
-              <span className={styles.label}>Resultados</span>
-              <h1 className={styles.title}>
-                Impacto real,{' '}
-                <span className={styles.titleAccent}>no promesas</span>
-              </h1>
-              <p className={styles.subtitle}>
-                Cada proyecto que entregamos tiene un objetivo de negocio concreto.
-                Acá mostramos qué pasa después de implementar una solución de Blend.
-              </p>
-            </div>
-          </div>
-        </section>
-
-        {/* Stats */}
-        <section className={styles.stats}>
-          <div className="container">
-            <div className={styles.statsGrid}>
-              {stats.map((s) => (
-                <div key={s.label} className={styles.statCard}>
-                  <div className={styles.statIcon}>
-                    <s.icon size={20} strokeWidth={1.75} />
-                  </div>
-                  <span className={styles.statValue}>{s.value}</span>
-                  <p className={styles.statLabel}>{s.label}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Case studies */}
-        <section className={styles.cases}>
-          <div className="container">
-            <div className={styles.sectionHeader}>
-              <span className={styles.sectionLabel}>Casos de impacto</span>
-              <h2 className={styles.sectionTitle}>Qué cambia cuando trabajamos juntos</h2>
-              <p className={styles.sectionDesc}>
-                Proyectos reales con resultados documentados. Las industrias y datos
-                son representativos de casos que hemos resuelto.
-              </p>
-            </div>
-            <div className={styles.casesList}>
-              {cases.map((c, i) => (
-                <div key={c.industry} className={`${styles.caseCard} ${styles[c.color]}`}>
-                  <div className={styles.caseHeader}>
-                    <span className={styles.caseIndustry}>{c.industry}</span>
-                    <span className={styles.caseNum}>0{i + 1}</span>
-                  </div>
-                  <div className={styles.caseBody}>
-                    <div className={styles.caseCol}>
-                      <h4 className={styles.caseColTitle}>El problema</h4>
-                      <p className={styles.caseText}>{c.problem}</p>
+            <ol className={styles.caseList}>
+              {cases.map((c) => (
+                <li key={c.industry} className={`${styles.case} ${styles[c.tone]}`}>
+                  <h2 className={styles.industry}>{c.industry}</h2>
+                  <div className={styles.flow}>
+                    <div className={styles.stage}>
+                      <h3>Antes</h3>
+                      <p>{c.before}</p>
                     </div>
-                    <div className={styles.caseDivider} />
-                    <div className={styles.caseCol}>
-                      <h4 className={styles.caseColTitle}>La solución</h4>
-                      <p className={styles.caseText}>{c.solution}</p>
+                    <div className={styles.stage}>
+                      <h3>Qué construimos</h3>
+                      <p>{c.built}</p>
                     </div>
-                    <div className={styles.caseDivider} />
-                    <div className={styles.caseCol}>
-                      <h4 className={styles.caseColTitle}>Los resultados</h4>
-                      <ul className={styles.caseResults}>
-                        {c.results.map((r) => (
-                          <li key={r} className={styles.caseResult}>
-                            <span className={styles.resultDot} />
-                            {r}
-                          </li>
+                    <div className={`${styles.stage} ${styles.after}`}>
+                      <h3>Después</h3>
+                      <ul>
+                        {c.after.map((r) => (
+                          <li key={r}>{r}</li>
                         ))}
                       </ul>
                     </div>
                   </div>
-                </div>
+                </li>
               ))}
-            </div>
+            </ol>
+            <p className={styles.disclaimer}>
+              Los escenarios describen tipos de proyecto que realizamos. Por confidencialidad no
+              identificamos a los clientes.
+            </p>
           </div>
         </section>
 
-        {/* Benefits */}
-        <section className={styles.benefits}>
+        <section className={styles.gains} aria-labelledby="gains-title">
           <div className="container">
-            <div className={styles.sectionHeader}>
-              <span className={styles.sectionLabel}>Beneficios tangibles</span>
-              <h2 className={styles.sectionTitle}>Lo que tu empresa gana</h2>
-            </div>
-            <div className={styles.benefitsGrid}>
-              {benefits.map((b) => (
-                <div key={b.title} className={styles.benefitCard}>
-                  <div className={styles.benefitIcon}>
-                    <b.icon size={20} strokeWidth={1.75} />
-                  </div>
-                  <h3 className={styles.benefitTitle}>{b.title}</h3>
-                  <p className={styles.benefitDesc}>{b.desc}</p>
-                </div>
-              ))}
+            <div className={styles.gainsInner}>
+              <h2 id="gains-title" className={styles.gainsTitle}>
+                Lo que tu empresa gana
+              </h2>
+              <ul className={styles.gainList}>
+                {gains.map((g) => (
+                  <li key={g.title}>
+                    <h3>{g.title}</h3>
+                    <p>{g.text}</p>
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
         </section>
 
-        {/* CTA */}
-        <section className={styles.cta}>
-          <div className="container">
-            <div className={styles.ctaBox}>
-              <h2 className={styles.ctaTitle}>¿Querés resultados así en tu empresa?</h2>
-              <p className={styles.ctaText}>
-                Contanos tu situación actual. Analizamos tu caso sin cargo y te
-                mostramos qué se podría lograr.
-              </p>
-              <Button variant="primary" size="lg" as="a" href="/contacto">
-                Quiero estos resultados <ArrowRight size={18} />
-              </Button>
-            </div>
-          </div>
-        </section>
-
+        <CTA
+          title="¿Te suena alguno de estos escenarios?"
+          text="Contanos cómo funciona hoy tu operación. Analizamos tu caso sin cargo y te mostramos qué se podría mejorar."
+          action="Analizar mi caso"
+        />
       </main>
       <Footer />
     </>

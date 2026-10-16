@@ -1,0 +1,95 @@
+@use '@/styles/variables' as *;
+
+.backdrop {
+  --mx: 70%;
+  --my: 40%;
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  background: $brand-gradient-soft;
+  pointer-events: none;
+}
+
+// Large blurred color fields; only transform animates (compositor-friendly)
+.blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(48px);
+  opacity: 1;
+  will-change: transform;
+
+  @media (prefers-reduced-motion: no-preference) {
+    animation: drift 22s ease-in-out infinite alternate;
+  }
+}
+
+.teal {
+  width: 62vmax;
+  height: 52vmax;
+  top: -22vmax;
+  right: -14vmax;
+  background: radial-gradient(closest-side, $teal-400, rgba($teal-400, 0));
+}
+
+.gold {
+  width: 46vmax;
+  height: 40vmax;
+  top: 22%;
+  right: 8%;
+  background: radial-gradient(closest-side, $gold-400, rgba($gold-400, 0));
+  animation-duration: 26s !important;
+  animation-delay: -6s !important;
+}
+
+.ochre {
+  width: 34vmax;
+  height: 30vmax;
+  bottom: -10vmax;
+  left: -6vmax;
+  background: radial-gradient(closest-side, rgba($ochre-400, 0.7), rgba($ochre-400, 0));
+  animation-duration: 30s !important;
+  animation-delay: -12s !important;
+}
+
+.olive {
+  width: 40vmax;
+  height: 34vmax;
+  bottom: -18vmax;
+  right: 20%;
+  background: radial-gradient(closest-side, rgba($logo-olive, 0.55), rgba($logo-olive, 0));
+  animation-duration: 24s !important;
+  animation-delay: -3s !important;
+}
+
+@keyframes drift {
+  0%   { transform: translate3d(0, 0, 0) scale(1) rotate(0deg); }
+  50%  { transform: translate3d(-6vmax, 4vmax, 0) scale(1.08) rotate(8deg); }
+  100% { transform: translate3d(4vmax, -3vmax, 0) scale(0.96) rotate(-6deg); }
+}
+
+// Warm light that trails the pointer
+.glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    420px circle at var(--mx) var(--my),
+    rgba($gold-200, 0.6),
+    rgba($gold-200, 0) 70%
+  );
+  opacity: 0;
+  transition: opacity 600ms ease;
+
+  [data-active='true'] > & {
+    opacity: 1;
+  }
+}
+
+// Fine paper grain so the gradient reads printed, not glossy
+.grain {
+  position: absolute;
+  inset: -50%;
+  opacity: 0.22;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.45 0 0 0 0 0.45 0 0 0 0 0.45 0 0 0 0.55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}

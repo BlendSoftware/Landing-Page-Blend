@@ -1,197 +1,216 @@
 @use '@/styles/variables' as *;
 
-// ═══════════════════════════════════════════════════════════════
-//  SERVICES
-// ═══════════════════════════════════════════════════════════════
-
 .section {
-  position: relative;
-  overflow: hidden;
-  background: linear-gradient(160deg, $color-primary-bg 0%, $color-white 50%, $color-primary-bg 100%);
-}
-
-.bgShape {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 800px;
-  height: 600px;
-  background: radial-gradient(ellipse, rgba($color-primary, 0.05) 0%, transparent 65%);
-  pointer-events: none;
+  background: $paper;
+  padding-block: $section-pad;
 }
 
 .header {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: $spacing-sm;
-  margin-bottom: $spacing-lg;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: $space-4;
+  align-items: end;
+  margin-bottom: clamp(32px, 5vw, 64px);
 
-  @media (max-width: 768px) {
-    align-items: center;
-    text-align: center;
+  @media (min-width: $bp-lg) {
+    grid-template-columns: 1fr 1fr;
+    gap: $space-8;
   }
 }
 
 .title {
-  max-width: 20ch;
+  @include display($display-1, 300);
 }
 
-.grid {
+.intro {
+  font-size: $text-lg;
+  color: $ink-soft;
+  max-width: 40ch;
+
+  @media (min-width: $bp-lg) {
+    justify-self: end;
+  }
+}
+
+.list {
+  border-top: 1px solid $ink;
+}
+
+.row {
+  --tone: #{$teal-400};
+  border-bottom: 1px solid $ink;
+
+  &.gold   { --tone: #{$gold-400}; }
+  &.ochre  { --tone: #{$ochre-400}; }
+
+  &::details-content {
+    block-size: 0;
+    overflow: hidden;
+    transition: block-size $dur-base $ease-out, content-visibility $dur-base allow-discrete;
+  }
+
+  &[open]::details-content {
+    block-size: auto;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    &::details-content {
+      transition: none;
+    }
+  }
+}
+
+.summary {
   position: relative;
-  z-index: 1;
+  list-style: none;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: $spacing-md;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: $space-2 $space-6;
+  padding: clamp(22px, 2.8vw, 36px) 0;
+  cursor: pointer;
 
-  @media (max-width: 1100px) {
-    grid-template-columns: repeat(2, 1fr);
+  &::-webkit-details-marker {
+    display: none;
   }
 
-  @media (max-width: 560px) {
-    grid-template-columns: 1fr;
+  @media (min-width: $bp-lg) {
+    grid-template-columns: minmax(0, 6fr) minmax(0, 5fr) auto;
   }
 }
 
-// ── Base card ──────────────────────────────────────────────────
-.card {
-  background: $color-white;
-  border: 1px solid $color-border;
-  border-radius: $radius-lg;
-  padding: $spacing-md;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  position: relative;
-  overflow: hidden;
-  transition: box-shadow $transition-normal, transform $transition-normal, border-color $transition-normal;
+// The name thickens on hover/open: the variable font animates its weight
+.name {
+  @include display($display-2, 300);
+  line-height: 1;
+  transition: font-weight 420ms $ease-out, font-stretch 420ms $ease-out;
 
-  // Left accent bar
-  &::before {
+  .summary:hover &,
+  .row[open] & {
+    font-weight: 750;
+    font-stretch: 112%;
+  }
+}
+
+.line {
+  grid-column: 1;
+  color: $ink-soft;
+  max-width: 46ch;
+
+  @media (min-width: $bp-lg) {
+    grid-column: auto;
+  }
+}
+
+// Plus → minus in a circle that fills with the service color
+.toggle {
+  grid-row: 1;
+  grid-column: 2;
+  position: relative;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  border: 1px solid $ink;
+  background: transparent;
+  transition: background-color $dur-base ease, border-color $dur-base ease, scale $dur-base $ease-out;
+
+  @media (min-width: $bp-lg) {
+    grid-column: 3;
+  }
+
+  &::before,
+  &::after {
     content: '';
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 3px;
-    height: 100%;
-    opacity: 0.5;
-    transition: opacity $transition-normal;
+    left: 50%;
+    top: 50%;
+    width: 16px;
+    height: 2px;
+    margin: -1px 0 0 -8px;
+    border-radius: 2px;
+    background: $ink;
+    transition: rotate $dur-base $ease-out;
   }
 
-  &:hover {
-    transform: translateY(-5px);
-    border-color: transparent;
+  &::after {
+    rotate: 90deg;
+  }
 
-    &::before { opacity: 1; }
-    .iconWrap { transform: scale(1.08); }
-    .arrow { opacity: 1; }
+  .summary:hover & {
+    scale: 1.08;
+  }
+
+  .row[open] & {
+    background: var(--tone);
+    border-color: var(--tone);
+
+    &::after {
+      rotate: 0deg;
+    }
   }
 }
 
-// ── Teal variant ─────────────────────────────────────────────────
-.cardTeal {
-  &::before { background: linear-gradient(180deg, $color-primary, $color-primary-light); }
+.body {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: $space-5;
+  padding-bottom: clamp(28px, 3vw, 44px);
 
-  &:hover {
-    box-shadow: 0 16px 40px rgba($color-primary, 0.12);
-    .iconWrap { background: $color-primary; color: $color-white; }
-    .arrow { color: $color-primary; }
+  @media (min-width: $bp-md) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .iconWrap { background: $color-primary-bg; color: $color-primary; }
-  .featureCheck { color: $color-primary; }
-  .tag { color: $color-primary-dark; background: rgba($color-primary, 0.08); }
-}
-
-// ── Gold variant ─────────────────────────────────────────────────
-.cardGold {
-  &::before { background: linear-gradient(180deg, $color-gold, $color-gold-light); }
-
-  &:hover {
-    box-shadow: 0 16px 40px rgba($color-gold, 0.12);
-    .iconWrap { background: $color-gold; color: $color-white; }
-    .arrow { color: $color-gold; }
+  @media (min-width: $bp-lg) {
+    grid-template-columns: minmax(0, 6fr) minmax(0, 3fr) minmax(0, 3fr);
+    gap: $space-7;
   }
-
-  .iconWrap { background: $color-gold-bg; color: $color-gold; }
-  .featureCheck { color: $color-gold; }
-  .tag { color: $color-gold-dark; background: rgba($color-gold, 0.12); }
 }
 
-.cardTop {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+.description {
+  font-size: $text-lg;
+  max-width: 50ch;
+
+  @media (min-width: $bp-md) and (max-width: $bp-lg - 1px) {
+    grid-column: 1 / -1;
+  }
 }
 
-.iconWrap {
-  width: 48px;
-  height: 48px;
-  border-radius: $radius-md;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background $transition-normal, color $transition-normal, transform $transition-normal;
+.subTitle {
+  font-family: $font-sans;
+  font-stretch: 100%;
+  font-size: $text-sm;
+  font-weight: 700;
+  letter-spacing: 0;
+  margin-bottom: $space-3;
 }
 
-.arrow {
-  color: $color-border;
-  opacity: 0.5;
-  transition: color $transition-normal, opacity $transition-normal;
-}
-
-.cardTitle {
-  font-size: $font-size-lg;
-  font-weight: $font-weight-semibold;
-  color: $color-text;
-  letter-spacing: -0.01em;
-  line-height: $line-height-snug;
-}
-
-.cardDesc {
-  font-size: $font-size-sm;
-  color: $color-text-secondary;
-  line-height: $line-height-relaxed;
-  flex: 1;
-}
-
-// ── Feature list ────────────────────────────────────────────────
 .features {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
+  display: grid;
   gap: 6px;
-  border-top: 1px solid $color-border;
-  padding-top: 10px;
+  font-size: $text-sm;
+
+  li {
+    position: relative;
+    padding-left: 20px;
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0.5em;
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--tone);
+    }
+  }
 }
 
-.featureItem {
-  display: flex;
-  align-items: center;
-  gap: 7px;
-  font-size: $font-size-xs;
-  font-weight: $font-weight-medium;
-  color: $color-text-secondary;
-}
-
-.featureCheck {
-  flex-shrink: 0;
-}
-
-.tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-}
-
-.tag {
-  font-size: $font-size-xs;
-  font-weight: $font-weight-medium;
-  padding: 3px 10px;
-  border-radius: $radius-full;
+.ideal {
+  display: grid;
+  gap: $space-3;
+  align-content: start;
+  justify-items: start;
+  font-size: $text-sm;
+  color: $ink-soft;
 }

@@ -1,255 +1,59 @@
-﻿@use '@/styles/variables' as *;
-
-// PROCESS
+@use '@/styles/variables' as *;
 
 .section {
+  @include canvas(transparent);
   position: relative;
+  isolation: isolate;
   overflow: hidden;
-  background: linear-gradient(165deg, $color-primary-bg 0%, $color-white 60%, $color-primary-bg 100%);
+  padding-block: clamp(64px, 9vw, 136px);
 }
 
-.bgOrb {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 700px;
-  height: 500px;
-  border-radius: 50%;
-  background: radial-gradient(ellipse, rgba($color-primary, 0.06) 0%, transparent 65%);
-  pointer-events: none;
+.kicker {
+  font-family: $font-sans;
+  font-stretch: 100%;
+  font-size: $text-lg;
+  font-weight: 700;
+  letter-spacing: 0;
 }
 
-.header {
-  position: relative;
-  z-index: 1;
+// Read as one sentence; each step is a list item for structure
+.sentence {
+  margin-top: $space-5;
+  font-family: $font-display;
+  font-stretch: 122%;
+  font-weight: 300;
+  font-size: clamp(1.75rem, 0.9rem + 3.4vw, 4rem);
+  line-height: 1.12;
+  letter-spacing: -0.035em;
+  max-width: 24ch;
+
+  li {
+    display: inline;
+  }
+}
+
+
+.foot {
+  margin-top: clamp(32px, 5vw, 56px);
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  gap: $spacing-sm;
-  margin-bottom: $spacing-lg;
-}
-
-.title {
-  max-width: 22ch;
-}
-
-// Timeline grid
-.timeline {
-  position: relative;
-  z-index: 1;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: $spacing-md;
-
-  @media (max-width: 900px) {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  @media (max-width: 540px) {
-    grid-template-columns: 1fr;
-  }
-}
-
-// Card base
-.card {
-  position: relative;
-  overflow: hidden;
-  background: $color-white;
-  border: 1px solid $color-border;
-  border-radius: $radius-lg;
-  padding: $spacing-md;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  box-shadow: $shadow-xs;
-  transition: box-shadow $transition-normal, transform $transition-normal, border-color $transition-normal;
-
-  // Colored top bar
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 3px;
-    border-radius: $radius-lg $radius-lg 0 0;
-  }
-
-  &:hover {
-    transform: translateY(-5px);
-    border-color: transparent;
-
-    .iconCircle { transform: scale(1.08); }
-    .watermark  { opacity: 0.06; }
-  }
-}
-
-// Teal variant
-.cardTeal {
-  &::before { background: linear-gradient(to right, $color-primary, $color-primary-light); }
-
-  &:hover {
-    box-shadow: 0 16px 40px rgba($color-primary, 0.12);
-
-    .iconCircle {
-      background: $color-primary;
-      color: $color-white;
-      border-color: $color-primary;
-    }
-    .deliverable {
-      color: $color-primary-dark;
-      background: $color-primary-bg;
-      border-color: rgba($color-primary, 0.3);
-    }
-    .deliverableIcon { color: $color-primary; }
-  }
-
-  .iconCircle { border-color: $color-primary-light; color: $color-primary; }
-  .durationBadge { color: $color-primary-dark; background: $color-primary-bg; border-color: rgba($color-primary, 0.2); }
-  .stepNumber { color: $color-primary; }
-}
-
-// Gold variant
-.cardGold {
-  &::before { background: linear-gradient(to right, $color-gold, $color-gold-light); }
-
-  &:hover {
-    box-shadow: 0 16px 40px rgba($color-gold, 0.12);
-
-    .iconCircle {
-      background: $color-gold;
-      color: $color-white;
-      border-color: $color-gold;
-    }
-    .deliverable {
-      color: $color-gold-dark;
-      background: $color-gold-bg;
-      border-color: rgba($color-gold, 0.3);
-    }
-    .deliverableIcon { color: $color-gold; }
-  }
-
-  .iconCircle { border-color: rgba($color-gold, 0.4); color: $color-gold; }
-  .durationBadge { color: $color-gold-dark; background: $color-gold-bg; border-color: rgba($color-gold, 0.25); }
-  .stepNumber { color: $color-gold-dark; }
-}
-
-// Connector dot between cards
-.connector {
-  position: absolute;
-  top: 32px;
-  right: -20px;
-  width: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 2;
-
-  @media (max-width: 900px) { display: none; }
-}
-
-.connectorDot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: $color-gold-light;
-  box-shadow: 0 0 0 3px rgba($color-gold, 0.15);
-}
-
-// Watermark number
-.watermark {
-  position: absolute;
-  bottom: -12px;
-  right: 10px;
-  font-size: 5rem;
-  font-weight: $font-weight-extrabold;
-  color: $color-text;
-  opacity: 0.03;
-  line-height: 1;
-  letter-spacing: -0.06em;
-  pointer-events: none;
-  user-select: none;
-  transition: opacity $transition-normal;
-}
-
-// Card internals
-.cardTop {
-  display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  gap: 8px;
+  gap: $space-4 $space-6;
+  font-size: $text-lg;
+
+  p {
+    max-width: 48ch;
+  }
 }
 
-.iconCircle {
-  width: 52px;
-  height: 52px;
-  border-radius: 50%;
-  background: $color-white;
-  border: 2px solid;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: $shadow-sm;
-  flex-shrink: 0;
-  transition: all $transition-normal;
-}
+.more {
+  font-weight: 700;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 5px;
 
-.durationBadge {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  font-size: 11px;
-  font-weight: $font-weight-semibold;
-  padding: 4px 10px;
-  border-radius: $radius-full;
-  border: 1px solid;
-  transition: all $transition-normal;
-}
-
-.stepNumber {
-  font-size: $font-size-xs;
-  font-weight: $font-weight-extrabold;
-  letter-spacing: 0.12em;
-  opacity: 0.7;
-  transition: opacity $transition-normal;
-}
-
-.stepTitle {
-  font-size: $font-size-md;
-  font-weight: $font-weight-bold;
-  color: $color-text;
-  letter-spacing: -0.01em;
-  line-height: $line-height-snug;
-}
-
-.stepDesc {
-  font-size: $font-size-sm;
-  color: $color-text-secondary;
-  line-height: $line-height-relaxed;
-  flex: 1;
-}
-
-// Deliverable pill
-.deliverable {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-size: $font-size-xs;
-  font-weight: $font-weight-semibold;
-  color: $color-text-muted;
-  background: $color-bg;
-  border: 1px solid $color-border;
-  border-radius: $radius-full;
-  padding: 5px 12px;
-  width: fit-content;
-  margin-top: 4px;
-  transition: all $transition-normal;
-}
-
-.deliverableIcon {
-  color: $color-text-muted;
-  flex-shrink: 0;
-  transition: color $transition-normal;
+  &:hover {
+    text-decoration-color: $ochre-700;
+  }
 }
