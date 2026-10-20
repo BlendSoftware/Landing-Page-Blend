@@ -74,7 +74,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <Analytics />
 
         {/* GA4 haciendo lo suyo. ¡Cambiá el G-XYZ por tu ID real! */}
-        <GoogleAnalytics gaId="G-XYZ1234567" />
+        <GoogleAnalytics gaId="G-GYETPTX7S0" />
       </body>
     </html>
   );
