@@ -4,8 +4,10 @@ import JsonLd, { organizationSchema, websiteSchema } from '@/components/seo/Json
 import { site } from '@/lib/site';
 import '@/styles/globals.scss';
 
-// Self-hosted at build time: no request to Google, no layout shift on swap.
-// Archivo's width axis gives the expanded, poster-style headlines.
+// Importás los dos
+import { Analytics } from '@vercel/analytics/react';
+import { GoogleAnalytics } from '@next/third-parties/google';
+
 const display = Archivo({
   subsets: ['latin'],
   axes: ['wdth'],
@@ -13,7 +15,6 @@ const display = Archivo({
   display: 'swap',
 });
 
-// Serif accent for short phrases (eyebrows, the odd italic word)
 const accent = Instrument_Serif({
   subsets: ['latin'],
   weight: '400',
@@ -29,6 +30,7 @@ const body = Onest({
 });
 
 export const metadata: Metadata = {
+  // ... (todo lo tuyo queda igual, no te lo toco)
   metadataBase: new URL(site.url),
   title: {
     default: 'Blend Software',
@@ -67,6 +69,12 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         </a>
         <JsonLd data={[organizationSchema, websiteSchema]} />
         {children}
+        
+        {/* Vercel haciendo lo suyo */}
+        <Analytics />
+
+        {/* GA4 haciendo lo suyo. ¡Cambiá el G-XYZ por tu ID real! */}
+        <GoogleAnalytics gaId="G-XYZ1234567" />
       </body>
     </html>
   );
